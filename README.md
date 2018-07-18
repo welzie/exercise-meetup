@@ -1,0 +1,2 @@
+# exercise-meetup
+Group project
