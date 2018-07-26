@@ -1,4 +1,4 @@
-package org.launchcode.exercisemeetup.models.forms;
+package org.launchcode.exercisemeetup.Models.forms;
 
 import javax.validation.constraints.NotNull;
 
