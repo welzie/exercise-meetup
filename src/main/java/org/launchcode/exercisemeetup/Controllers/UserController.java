@@ -3,6 +3,7 @@ package org.launchcode.exercisemeetup.Controllers;
 import org.launchcode.exercisemeetup.Models.User;
 import org.launchcode.exercisemeetup.Models.data.UserDao;
 import org.launchcode.exercisemeetup.Models.forms.LoginForm;
+import org.launchcode.exercisemeetup.Models.forms.RegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +28,12 @@ public class UserController extends org.launchcode.springfilterbasedauth.control
     return "main/index";
     }
 
-    @RequestMapping(value="register")
+    @RequestMapping(value="register", method = RequestMethod.GET)
     public String register(Model model) {
+
+        RegisterForm registerform = new RegisterForm();
         model.addAttribute("title", "New User Registration");
+        model.addAttribute("form", registerform);
     return "main/register";
     }
 

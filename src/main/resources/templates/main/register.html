@@ -6,7 +6,20 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p>Testing Registration!</p>
+<form th:object="${form}" method="post" style="max-width:600px;" action="/main/register">
+    <div class="form-group">
+        <label th:for="username">Username</label>
+        <input class="form-control" th:field="*{username}" />
+        <!--<span th:errors="*{username}" class="error"></span>-->
+    </div>
 
+    <div class="form-group">
+        <label th:for="password">Password</label>
+        <input class="form-control" th:field="*{password}" />
+        <!--<span th:errors="*{password}" class="error"></span>-->
+    </div>
+
+    <input type="submit" value="Register" />
+</form>
 </body>
 </html>
