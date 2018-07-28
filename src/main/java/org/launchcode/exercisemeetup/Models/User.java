@@ -1,4 +1,4 @@
-package org.launchcode.exercisemeetup.Models.;
+package org.launchcode.exercisemeetup.Models;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

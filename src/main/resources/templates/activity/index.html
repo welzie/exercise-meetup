@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container-fluid">
+<h1 th:text="${title}">Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+
+<a href="/main/activity">New Activity</a>
+</body>
+</html>

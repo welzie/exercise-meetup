@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container-fluid">
+<h1 th:text="${title}">Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form method="post" style="max-width:600px;" th:object="${activity}">
+
+    <div class="form-group">
+        <label th:for="activityType">Type</label>
+        <select name="activityType">
+            <option th:each="activity : ${activities}"
+                    th:text="${category.name}"
+                    th:value="${category.id}"></option>
+        </select>
+    </div>
+
+    <input type="submit" value="Add Cheese" />
+</form>
+
+</body>
+</html>
