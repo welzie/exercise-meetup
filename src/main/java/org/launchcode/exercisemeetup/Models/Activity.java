@@ -50,4 +50,6 @@ public class Activity{
     public void setLevel(SkillLevel level) {
         this.level = level;
     }
+
+
 }

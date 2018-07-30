@@ -9,15 +9,24 @@
 <form method="post" style="max-width:600px;" th:object="${activity}">
 
     <div class="form-group">
-        <label th:for="activityType">Type</label>
-        <select name="activityType">
-            <option th:each="activity : ${activities}"
-                    th:text="${category.name}"
-                    th:value="${category.id}"></option>
+        <label th:for="type">Activity Type</label>
+        <select name="type">
+            <option th:each="type : ${types}"
+                    th:text="${type.name}"
+                    th:value="${type}"></option>
         </select>
+        <input th:type="hidden" th:field="${activity.id}"/>
+    </div>
+    <div class="form-group">
+        <label>Skill Level</label>
+        <div class="radio">
+            <label th:for="level"> <input type="radio" name="level"
+                           th:each="level : ${levels}" th:text="${level.name}" th:value="${level}" >
+            </label>
+        </div>
     </div>
 
-    <input type="submit" value="Add Cheese" />
+    <input type="submit" value="Add Activity" />
 </form>
 
 </body>
