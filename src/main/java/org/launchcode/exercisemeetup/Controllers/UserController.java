@@ -7,11 +7,13 @@ import org.launchcode.exercisemeetup.Models.forms.RegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 
 @Controller
@@ -28,13 +30,35 @@ public class UserController extends org.launchcode.springfilterbasedauth.control
     return "main/index";
     }
 
-    @RequestMapping(value="register", method = RequestMethod.GET)
+    @RequestMapping(value="register", method=RequestMethod.GET)
     public String register(Model model) {
 
-        RegisterForm registerform = new RegisterForm();
         model.addAttribute("title", "New User Registration");
-        model.addAttribute("form", registerform);
+        model.addAttribute(new RegisterForm());
     return "main/register";
+    }
+
+    @RequestMapping(value="register", method = RequestMethod.POST)
+    public String processRegisterForm(@ModelAttribute @Valid RegisterForm form, Errors errors, HttpServletRequest request) {
+
+
+        if (errors.hasErrors()) {
+            return "main/register";
+        }
+
+        User existingUser = userDao.findByUsername(form.getUsername());
+
+
+        if (existingUser != null) {
+            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
+            return "main/register";
+        }
+
+        User newUser = new User(form.getUsername(), form.getPassword());
+        userDao.save(newUser);
+        setUserInSession(request.getSession(), newUser);
+
+        return "main/index";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -46,7 +70,7 @@ public class UserController extends org.launchcode.springfilterbasedauth.control
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(@ModelAttribute LoginForm form, HttpServletRequest request) {
 
-        User theUser = userDao.findByusername(form.getUsername());
+        User theUser = userDao.findByUsername(form.getUsername());
         String password = form.getPassword();
 
         setUserInSession(request.getSession(), theUser);

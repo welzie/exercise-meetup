@@ -6,17 +6,23 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form th:object="${form}" method="post" style="max-width:600px;" action="/main/register">
+<form th:object="${registerForm}" method="post" style="max-width:600px;">
     <div class="form-group">
         <label th:for="username">Username</label>
         <input class="form-control" th:field="*{username}" />
-        <!--<span th:errors="*{username}" class="error"></span>-->
+        <span th:errors="*{username}" class="error"></span>
     </div>
 
     <div class="form-group">
         <label th:for="password">Password</label>
-        <input class="form-control" th:field="*{password}" />
-        <!--<span th:errors="*{password}" class="error"></span>-->
+        <input class="form-control" th:field="*{password}" type="password" />
+        <span th:errors="*{password}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="verifyPassword">Verify Password</label>
+        <input class="form-control" th:field="*{verifyPassword}" type="password" />
+        <span th:errors="*{verifyPassword}" class="error"></span>
     </div>
 
     <input type="submit" value="Register" />
