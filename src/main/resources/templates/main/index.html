@@ -4,7 +4,9 @@
 <body class="container-fluid">
 <h1 th:text="${title}">Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigation">
+
+    <h1>Welcome, <span th:text="${user.username}"></span></h1>
 
 </body>
 </html>
