@@ -8,5 +8,34 @@
 
 
 <a href="/main/activity/add">New Activity</a>
+<p th:unless="${activities} and ${activities.size()}">No Activities to Display</p>
+
+
+<div class="container">
+    <h1>Activites</h1>
+    <div class="row col-md-7 table-responsive">
+        <table id="activityTable" class="table">
+            <thead>
+            <tr>
+                <th>Activity</th>
+                <th>Skill Level</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="activity: ${activities}">
+                <!--th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">-->
+                <td th:text="${activity.type}"></td>
+                <td th:text="${activity.level}"></td>
+                <td>No Data</td>
+                <td>No Data</td>
+                <td>No Data</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

@@ -12,6 +12,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -23,7 +26,9 @@ public class ActivityController{
 
     @RequestMapping(value = "")
     public String index(Model model) {
-        model.addAttribute("title", "New Activity");
+        Iterable<Activity> activities = activityDao.findAll();
+        model.addAttribute("activities", activities);
+        model.addAttribute("title", "User Activities");
 
         return "activity/index";
     }
@@ -38,9 +43,13 @@ public class ActivityController{
         return "activity/add-activity";
     }
 
-    @RequestMapping(value="add", method= RequestMethod.POST)
+    @RequestMapping(value="add", method= RequestMethod.POST) //error is happening in the @valid activity new activity
+    //failing to convert data type string to needed dateformat data type
     public String processAddActivity(@ModelAttribute @Valid Activity newActivity,
                                      Errors errors,  Model model){
+//               DateFormat actDate = newActivity.getDate();   i was trying to think of was to get into correct data type
+//        Date newActDate = actDate.parse(String.valueOf(actDate));
+
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Activity");
