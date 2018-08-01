@@ -1,4 +1,5 @@
 package org.launchcode.exercisemeetup.Models;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //structure of this register/login experience taken from Chris Bay's demo: https://github.com/LaunchCodeEducation/spring-filter-based-auth
