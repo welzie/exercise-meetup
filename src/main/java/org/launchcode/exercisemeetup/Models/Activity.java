@@ -14,16 +14,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.time.LocalTime;
 
 
 @Entity
 public class Activity{
 
-    private static final String START_DATE_FORMAT_PATTERN = "MM/dd/yyyy";
+    private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT
-            = new SimpleDateFormat(START_DATE_FORMAT_PATTERN);
+            = new SimpleDateFormat(DATE_FORMAT_PATTERN);
 
+    private static final String TIME_FORMAT_PATTERN = "HH:mm";
+    private static final SimpleDateFormat TIME_SIMPLE_DATE_FORMAT
+            = new SimpleDateFormat(TIME_FORMAT_PATTERN);
     @Id
     @GeneratedValue
     private int id;
@@ -36,14 +39,17 @@ public class Activity{
     @NotNull
     private SkillLevel level;
 
-    @DateTimeFormat(pattern = START_DATE_FORMAT_PATTERN)
+    @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
     private LocalDate date; //using dateformat data type
+
+    @DateTimeFormat(pattern = TIME_FORMAT_PATTERN)
+    private LocalTime time;
 
     public Activity(){
 
     }
 
-    public Activity(ActivityType type, SkillLevel level,LocalDate date){
+    public Activity(ActivityType type, SkillLevel level,LocalDate date, LocalTime time){
 
         this.type = type;
         this.level = level;
@@ -82,4 +88,16 @@ public class Activity{
     public void setDate(LocalDate date) {
         this.date = date;
    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+
+    }
+    public String getFormattedTime() {
+        return Activity.TIME_SIMPLE_DATE_FORMAT.format(time);
+    }
 }
