@@ -21,7 +21,7 @@
     <div class="navbar-collapse collapse" id="collapsingNavbar">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/main">Main</a>
+                <a class="nav-link" href="/">Main</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{register}">Register</a>
@@ -33,13 +33,14 @@
                 <a class="nav-link" th:href="@{activity/add}" data-toggle="collapse">Add Activity</a>
             </li>
         </ul>
-        <!--<ul class="navbar-nav ml-auto">
-            <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                <form th:action="@{/logout}" method="post" name="logoutForm"></form>
-                <a class="nav-link" href="#" onclick="document.logoutForm.submit()"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+        <!-- idea here is to add login/register/logout button in top right, but I can't find the right object to pass in the 'if' and 'unless' statements on the template. will revisit...
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-link" th:if="${userId}">
+            <a href="#">LogOut</a>
             </li>
-            <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
-                <a class="nav-link" th:href="@{/register}"><i class="fas fa-user"></i> Register</a>
+            <li class="nav-link" th:unless="${userId}">
+                <a th:href="@{login}">Login</a>
+                <span> | <a th:href="@{register}">Register</a></span>
             </li>
         </ul>-->
     </div>

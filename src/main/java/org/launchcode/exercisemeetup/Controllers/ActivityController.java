@@ -46,18 +46,17 @@ public class ActivityController extends AbstractController {
     @RequestMapping(value="add", method= RequestMethod.POST)
     public String processAddActivity(@ModelAttribute @Valid Activity newActivity,
                                      Errors errors,  Model model, HttpSession httpSession){
-        int uId = userDao.findByUsername("user_id").getUid();
+        int uId = getUserFromSession(httpSession).getUid();
 
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
             model.addAttribute("levels", SkillLevel.values());
-            model.addAttribute("userId", uId);
             model.addAttribute(new Activity());
             return "activity/add-activity";
         }
-
+        newActivity.setUser(getUserFromSession(httpSession));
         activityDao.save(newActivity);
 
         return "redirect:view/" + newActivity.getId();
@@ -67,12 +66,13 @@ public class ActivityController extends AbstractController {
     }
 
     @RequestMapping(value="view/{activityId}",method = RequestMethod.GET)
-    public String viewActivity(@PathVariable int activityId, Model model){
+    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession){
 
         Optional<Activity> activity = activityDao.findById(activityId);
         Activity activityInfo = activity.get();
         model.addAttribute("activity", activityInfo);
         model.addAttribute("title", "New Activity");
+        model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
         return "activity/view-activity";
 
