@@ -8,12 +8,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.swing.text.DateFormatter;
+
+import javax.persistence.ManyToOne;
+
 import javax.validation.constraints.NotNull;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 
 
@@ -39,11 +41,16 @@ public class Activity{
     @NotNull
     private SkillLevel level;
 
+
     @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
     private LocalDate date; //using dateformat data type
 
     @DateTimeFormat(pattern = TIME_FORMAT_PATTERN)
     private LocalTime time;
+
+    @ManyToOne
+    private User user;
+
 
     public Activity(){
 
@@ -59,6 +66,14 @@ public class Activity{
 
     public int getId() {
         return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public ActivityType getType() {

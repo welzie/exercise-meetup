@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.time.LocalDate;
@@ -21,11 +23,8 @@ import java.util.Date;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("main/activity")
-public class ActivityController{
-
-    @Autowired
-    private ActivityDao activityDao;
+@RequestMapping("activity")
+public class ActivityController extends AbstractController {
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -37,24 +36,30 @@ public class ActivityController{
     }
 
     @RequestMapping(value="add", method = RequestMethod.GET)
-    public String displayAddActivity(Model model){
-        model.addAttribute("title", "Add Activity");
-        model.addAttribute("types", ActivityType.values());
-        model.addAttribute("levels", SkillLevel.values());
-        model.addAttribute(new Activity());
+    public String displayAddActivity(Model model, HttpSession httpSession) {
 
-        return "activity/add-activity";
+        if (getUserFromSession(httpSession)==null) {
+            return "redirect:/register";
+        } else {
+
+            model.addAttribute("title", "Add Activity");
+            model.addAttribute("types", ActivityType.values());
+            model.addAttribute("levels", SkillLevel.values());
+            model.addAttribute(new Activity());
+
+            return "activity/add-activity";
+        }
     }
 
     @RequestMapping(value="add", method= RequestMethod.POST) //error is happening in the @valid activity new activity
     //failing to convert data type string to needed dateformat data type
-    public String processAddActivity(@ModelAttribute @Valid Activity newActivity,
-                                     Errors errors, Model model) {
-//               DateFormat actDate = newActivity.getDate();   i was trying to think of was to get into correct data type
-//        Date newActDate = actDate.parse(String.valueOf(actDate));
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-       // date = DateFormat.getDateInstance().format(date);
-        //LocalDateTime newDate = LocalDateTime.parse(date,formatter);
+    public String processAddActivity(@ModelAttribute @Valid Activity newActivity, Errors errors,  Model model, HttpSession httpSession) {
+
+
+
+
+
+
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
@@ -63,9 +68,10 @@ public class ActivityController{
             return "activity/add-activity";
         }
 
-        //newActivity.setDate(newDate);
+        newActivity.setUser(getUserFromSession(httpSession));
 
         activityDao.save(newActivity);
+
         return "redirect:view/" + newActivity.getId();
 
 
@@ -73,12 +79,13 @@ public class ActivityController{
     }
 
     @RequestMapping(value="view/{activityId}",method = RequestMethod.GET)
-    public String viewActivity(@PathVariable int activityId, Model model){
+    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession){
 
         Optional<Activity> activity = activityDao.findById(activityId);
         Activity activityInfo = activity.get();
         model.addAttribute("activity", activityInfo);
         model.addAttribute("title", "New Activity");
+        model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
         return "activity/view-activity";
 
