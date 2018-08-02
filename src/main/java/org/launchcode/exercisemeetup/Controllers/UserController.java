@@ -58,7 +58,7 @@ public class UserController extends AbstractController {
         userDao.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect: activity/add";
+        return "redirect:activity/add";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
