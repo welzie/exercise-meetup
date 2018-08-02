@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -22,7 +28,9 @@ public class ActivityController extends AbstractController {
 
     @RequestMapping(value = "")
     public String index(Model model) {
-        model.addAttribute("title", "New Activity");
+        Iterable<Activity> activities = activityDao.findAll();
+        model.addAttribute("activities", activities);
+        model.addAttribute("title", "User Activities");
 
         return "activity/index";
     }
@@ -43,10 +51,13 @@ public class ActivityController extends AbstractController {
         }
     }
 
-    @RequestMapping(value="add", method= RequestMethod.POST)
-    public String processAddActivity(@ModelAttribute @Valid Activity newActivity,
-                                     Errors errors,  Model model, HttpSession httpSession){
-        int uId = getUserFromSession(httpSession).getUid();
+    @RequestMapping(value="add", method= RequestMethod.POST) //error is happening in the @valid activity new activity
+    //failing to convert data type string to needed dateformat data type
+    public String processAddActivity(@ModelAttribute @Valid Activity newActivity, Errors errors,  Model model, HttpSession httpSession) {
+
+
+
+
 
 
         if (errors.hasErrors()) {
@@ -56,7 +67,9 @@ public class ActivityController extends AbstractController {
             model.addAttribute(new Activity());
             return "activity/add-activity";
         }
+
         newActivity.setUser(getUserFromSession(httpSession));
+
         activityDao.save(newActivity);
 
         return "redirect:view/" + newActivity.getId();
