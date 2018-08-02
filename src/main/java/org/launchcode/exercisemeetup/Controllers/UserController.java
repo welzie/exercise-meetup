@@ -17,8 +17,8 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("main")
-public class UserController extends org.launchcode.springfilterbasedauth.controllers.AbstractController {
+@RequestMapping("")
+public class UserController extends AbstractController {
 
 
     @Autowired
@@ -58,7 +58,7 @@ public class UserController extends org.launchcode.springfilterbasedauth.control
         userDao.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "main/index";
+        return "activity/add-activity";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -73,7 +73,7 @@ public class UserController extends org.launchcode.springfilterbasedauth.control
 
 
         if (errors.hasErrors()) {
-            return "login";
+            return "main/login";
         }
 
         User theUser = userDao.findByUsername(form.getUsername());
@@ -82,17 +82,17 @@ public class UserController extends org.launchcode.springfilterbasedauth.control
         if(theUser == null) {
 
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
-            return "login";
+            return "main/login";
         }
 
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password","password.invalid","Invalid password");
-            return "login";
+            return "main/login";
         }
 
         setUserInSession(request.getSession(), theUser);
 
-    return "redirect:";
+        return "activity/add-activity";
 
     }
 

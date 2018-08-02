@@ -1,6 +1,7 @@
-package org.launchcode.springfilterbasedauth.controllers;
+package org.launchcode.exercisemeetup.Controllers;
 
 import org.launchcode.exercisemeetup.Models.User;
+import org.launchcode.exercisemeetup.Models.data.ActivityDao;
 import org.launchcode.exercisemeetup.Models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,9 @@ public abstract class AbstractController {
 
     @Autowired
     protected UserDao userDao;
+
+    @Autowired
+    protected ActivityDao activityDao;
 
     /*
      * Other DAOs can be autowired here and they'll be available
