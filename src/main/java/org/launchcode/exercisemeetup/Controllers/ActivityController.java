@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -46,11 +49,12 @@ public class ActivityController{
     @RequestMapping(value="add", method= RequestMethod.POST) //error is happening in the @valid activity new activity
     //failing to convert data type string to needed dateformat data type
     public String processAddActivity(@ModelAttribute @Valid Activity newActivity,
-                                     Errors errors,  Model model){
+                                     Errors errors, Model model) {
 //               DateFormat actDate = newActivity.getDate();   i was trying to think of was to get into correct data type
 //        Date newActDate = actDate.parse(String.valueOf(actDate));
-
-
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+       // date = DateFormat.getDateInstance().format(date);
+        //LocalDateTime newDate = LocalDateTime.parse(date,formatter);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
@@ -59,7 +63,7 @@ public class ActivityController{
             return "activity/add-activity";
         }
 
-
+        //newActivity.setDate(newDate);
 
         activityDao.save(newActivity);
         return "redirect:view/" + newActivity.getId();

@@ -28,7 +28,7 @@
     <div class="form-group">
         <label th:for="date">Date
 
-    <input type="date" th:value="${activity.date}" name = "date"> <!--passing the date object to the view. i think here is where it is getting string-->
+    <input type="datepicker" th:feild="*{date}" name = "date"> <!--passing the date object to the view. i think here is where it is getting string-->
             <!--data type-->
         </label>
     </div>
