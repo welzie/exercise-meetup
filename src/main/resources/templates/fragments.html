@@ -13,23 +13,36 @@
 
 </head>
 <body>
-
-
-<nav th:fragment="navigation"  class="navbar navbar-light bg-light navbar-expand-xl">
-    <a class="navbar-brand" href="https://launchcode.org">
-        <img src="/images/lc_logo.png" width="100" height="50"  alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<nav th:fragment="navigation" class="navbar navbar-expand-xl navbar-light bg-light">
+    <a class="navbar-brand abs" href="https://launchcode.org"><img src="/images/lc_logo.png" width="100" height="50"  alt="launchcode logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Profile</a>
-            <a class="nav-item nav-link" href="#">Activities</a>
-        </div>
-
+    <div class="navbar-collapse collapse" id="collapsingNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Main</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{register}">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{login}" data-toggle="collapse">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{activity/add}" data-toggle="collapse">Add Activity</a>
+            </li>
+        </ul>
+        <!-- idea here is to add login/register/logout button in top right, but I can't find the right object to pass in the 'if' and 'unless' statements on the template. will revisit...
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-link" th:if="${userId}">
+            <a href="#">LogOut</a>
+            </li>
+            <li class="nav-link" th:unless="${userId}">
+                <a th:href="@{login}">Login</a>
+                <span> | <a th:href="@{register}">Register</a></span>
+            </li>
+        </ul>-->
     </div>
 </nav>
 </body>
