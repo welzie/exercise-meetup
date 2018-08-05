@@ -10,6 +10,11 @@
     <p th:text="${activity.type.name}"></p>
     <p th:text="${activity.level.name}"></p>
     <p th:text="${activity.user.username}"></p>
+    <form th:unless="${activity.completed}" method="post">
+        <input type="hidden" th:value="true" name="completed"/>
+        <input type="submit" th:value="completed" />
+    </form>
+    <p th:if="${activity.completed}">Completed</p>
 </div>
 
 <div>
@@ -31,7 +36,7 @@
             <td th:text="${activity.type}"></td>
             <td th:text="${activity.level}"></td>
             <td th:text="${activity.user.username}"></td>
-            <td>TBD</td>
+            <td th:unless="${activity.completed}"><button>Completed</button></td>
             <td>TBD</td>
         </tr>
 
