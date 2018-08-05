@@ -86,7 +86,7 @@ public class ActivityController extends AbstractController {
         if(completed == true) {
             activityInfo.setCompleted(true);
         }
-
+    
         model.addAttribute("activity", activityInfo);
         model.addAttribute("title", "New Activity");
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
