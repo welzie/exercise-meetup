@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head th:replace="fragments :: head">
+
 <body class="container-fluid">
+
 <h1 th:text="${title}">Title</h1>
 
-<nav th:replace="fragments :: navigation">
-
-<h1>Welcome, <span th:text="${user.username}"></span></h1>
+<div th:replace="fragments :: navigation"></div>
+<div th:replace="fragments :: header"></div>
 
 </body>
 </html>

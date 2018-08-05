@@ -55,11 +55,6 @@ public class ActivityController extends AbstractController {
     //failing to convert data type string to needed dateformat data type
     public String processAddActivity(@ModelAttribute @Valid Activity newActivity, Errors errors,  Model model, HttpSession httpSession) {
 
-
-
-
-
-
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
