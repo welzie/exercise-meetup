@@ -1,13 +1,8 @@
-
-body {
-font: ubuntu;
-}
-
-.header {
- background-image: url("../images/bicycle_background.jpg");
- background-attachment: fixed;
- background-size: cover;
- background-position: center;
+.header{
+    background-image: url('../images/bicycle_background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
 }
 
 .overlay{
@@ -18,3 +13,4 @@ font: ubuntu;
  top: 0;
  background: rgba(244, 244, 244, 0.79);
 }
+

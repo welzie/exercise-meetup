@@ -2,12 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
 
-<body class="container-fluid">
-
-<h1 th:text="${title}">Title</h1>
-
 <div th:replace="fragments :: navigation"></div>
-<div th:replace="fragments :: header"></div>
+<body class="container-fluid">
+    <div th:replace="fragments :: header"></div>
 
+<div th:replace="fragments :: js_scripts"></div>
 </body>
 </html>
