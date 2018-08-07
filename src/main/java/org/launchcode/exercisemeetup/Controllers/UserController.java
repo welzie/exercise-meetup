@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @Controller
@@ -94,6 +96,15 @@ public class UserController extends AbstractController {
 
         return "redirect:activity/add";
 
+    }
+
+    @RequestMapping(value = "user/{user_id}")
+    public String profileView(@PathVariable int user_id, Model model) {
+        /* Add edit profile links if user id and session user id match? */
+        Optional<User> user = userDao.findById(user_id);
+        model.addAttribute("user", user);
+
+        return "main/profile";
     }
 
 
