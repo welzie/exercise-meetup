@@ -51,6 +51,8 @@ public class Activity{
     @ManyToOne
     private User user;
 
+    private boolean completed;
+
 
     public Activity(){
 
@@ -61,7 +63,7 @@ public class Activity{
         this.type = type;
         this.level = level;
         this.date = date;
-
+        this.completed = false;
     }
 
     public int getId() {
@@ -112,6 +114,15 @@ public class Activity{
         this.time = time;
 
     }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public String getFormattedTime() {
         return Activity.TIME_SIMPLE_DATE_FORMAT.format(time);
     }

@@ -73,11 +73,15 @@ public class ActivityController extends AbstractController {
 
     }
 
-    @RequestMapping(value="view/{activityId}",method = RequestMethod.GET)
-    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession){
+    @RequestMapping(value="view/{activityId}")
+    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession, @RequestParam(value="completed", required = false) boolean completed){
 
         Optional<Activity> activity = activityDao.findById(activityId);
         Activity activityInfo = activity.get();
+        if(completed == true) {
+            activityInfo.setCompleted(true);
+        }
+    
         model.addAttribute("activity", activityInfo);
         model.addAttribute("title", "New Activity");
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
@@ -86,5 +90,6 @@ public class ActivityController extends AbstractController {
 
 
     }
+
 
 }
