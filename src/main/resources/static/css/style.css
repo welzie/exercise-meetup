@@ -5,6 +5,15 @@
     background-position: center;
 }
 
+.errors{
+    color: red;
+}
+
+.inputform{
+    padding-top: 180px;
+    padding-left: 20%;
+}
+
 .overlay{
  position: absolute;
  min-height: 100%;
@@ -31,7 +40,7 @@ body {
 
 }
 .description h1{
- color:#F97300 ;
+ color:#C51728 ;
 }
 .description p{
  color:#666;
@@ -40,7 +49,25 @@ body {
  line-height: 1.5;
 }
 .description button{
- border:1px  solid #F97300;
- background:#F97300;
+ border:1px  solid #C51728;
+ background:#C51728;
  color:#fff;
+}
+
+.navbar{
+ background:#C51728;
+}
+.nav-link , .navbar-brand{
+ color: #f4f4f4;
+ cursor: pointer;
+}
+
+.nav-link:hover{
+ background: #f4f4f4;
+ color: #C51728;
+
+}
+
+.navbar-toggler{
+  background:#fff !important;
 }

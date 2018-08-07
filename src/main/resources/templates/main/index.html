@@ -5,19 +5,23 @@
 <body class="container-fluid">
 <div th:replace="fragments :: navigation"></div>
 
-<div th:replace="fragments :: main_bg">
-    <div class="container">
-        <div class="description">
-            <h1>
-                Hi there! Welcome to our web app!
-                <p>
-                    We built this as part of the Lift Off program from launch Code. There are 4 of us working on project. We really hope you love it.
-                </p>
-                <button class="btn btn-outline-secondary btn-lg">Learn more</button>
-            </h1>
+<header class="header">
+    <div class="overlay">
+        <div class="container">
+            <div class="description">
+                <h3>
+                    Hi there! Welcome to our web app!
+                    <p>
+                        We built this as part of the Lift Off program from launch Code. There are 4 of us working on project. We really hope you love it.
+                    </p>
+                    <a th:href="@{register}"><button class="btn btn-outline-secondary btn-lg">Register</button></a><span> | <a th:href="@{login}"><button class="btn btn-outline-secondary btn-lg">Sign In</button></a></span>
+                </h3>
+            </div>
         </div>
     </div>
-</div>
+</header>
+
+
 <div th:replace="fragments :: js_scripts"></div>
 </body>
 </html>

@@ -15,7 +15,7 @@
 </div>
 
 <body>
-<nav th:fragment="navigation" class="navbar navbar-expand-xl navbar-light bg-light fixed-top">
+<nav th:fragment="navigation" class="navbar navbar-expand-xl fixed-top">
     <a class="navbar-brand abs" href="https://launchcode.org"><img src="/images/lc_logo.png" width="100" height="50"  alt="launchcode logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -26,13 +26,13 @@
                 <a class="nav-link" href="/">Main</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{register}">Register</a>
+                <a class="nav-link" th:href="@{/register}">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{login}" data-toggle="collapse">Login</a>
+                <a class="nav-link" th:href="@{/login}">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{activity/add}" data-toggle="collapse">Add Activity</a>
+                <a class="nav-link" th:href="@{/activity/add}">Add Activity</a>
             </li>
         </ul>
         <!-- idea here is to add login/register/logout button in top right, but I can't find the right object to pass in the 'if' and 'unless' statements on the template. will revisit...
@@ -47,12 +47,6 @@
         </ul>-->
     </div>
 </nav>
-
-<header th:fragment="main_bg" class="header">
-    <div class="overlay"></div>
-</header>
-
-
 
 </body>
 </html>
