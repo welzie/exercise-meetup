@@ -71,3 +71,8 @@ body {
 .navbar-toggler{
   background:#fff !important;
 }
+
+.container .card{
+    background: #ff3333;
+    color: #f4f4f4;
+}
