@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
+<div th:replace="fragments :: head"></div>
 
-<div th:replace="fragments :: navigation"></div>
 <body class="container-fluid">
-    <div th:replace="fragments :: header"></div>
+<div th:replace="fragments :: navigation"></div>
 
+<div th:replace="fragments :: main_bg">
+    <div class="container">
+        <div class="description">
+            <h1>
+                Hi there! Welcome to our web app!
+                <p>
+                    We built this as part of the Lift Off program from launch Code. There are 4 of us working on project. We really hope you love it.
+                </p>
+                <button class="btn btn-outline-secondary btn-lg">Learn more</button>
+            </h1>
+        </div>
+    </div>
+</div>
 <div th:replace="fragments :: js_scripts"></div>
 </body>
 </html>

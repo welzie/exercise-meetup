@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
-<body class="container-fluid">
-<h1 class="title" th:text="${title}">Title</h1>
+<div th:replace="fragments :: head"></div>
 
-<nav th:replace="fragments :: navigation"></nav>
+<body class="container-fluid">
+<div th:replace="fragments :: navigation"></div>
+
+<div th:replace="fragments :: header"></div>
 
 <form method="post" style="max-width:600px;" th:object="${loginForm}">
     <div class="form-group">
@@ -25,6 +26,6 @@
 </form>
 
 
-
+<div th:replace="fragments :: js_scripts"></div>
 </body>
 </html>

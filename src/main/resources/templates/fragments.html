@@ -15,7 +15,7 @@
 </div>
 
 <body>
-<nav th:fragment="navigation" class="navbar navbar-expand-xl navbar-light bg-light">
+<nav th:fragment="navigation" class="navbar navbar-expand-xl navbar-light bg-light fixed-top">
     <a class="navbar-brand abs" href="https://launchcode.org"><img src="/images/lc_logo.png" width="100" height="50"  alt="launchcode logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -48,9 +48,11 @@
     </div>
 </nav>
 
-<header th:fragment="header" class="header">
+<header th:fragment="main_bg" class="header">
     <div class="overlay"></div>
 </header>
+
+
 
 </body>
 </html>

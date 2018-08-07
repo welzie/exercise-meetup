@@ -14,3 +14,33 @@
  background: rgba(244, 244, 244, 0.79);
 }
 
+.container-fluid {
+  padding: 0px;
+}
+
+body {
+    padding-top: 80px;
+    position: relative;
+}
+
+.description{
+    position: absolute;
+    top: 30%;
+    margin: auto;
+    padding: 2em;
+
+}
+.description h1{
+ color:#F97300 ;
+}
+.description p{
+ color:#666;
+ font-size: 20px;
+ width: 50%;
+ line-height: 1.5;
+}
+.description button{
+ border:1px  solid #F97300;
+ background:#F97300;
+ color:#fff;
+}
