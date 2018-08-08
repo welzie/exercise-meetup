@@ -98,12 +98,13 @@ public class UserController extends AbstractController {
 
     }
 
-    @RequestMapping(value = "user/{user_id}")
+    @RequestMapping(value = "user/{user_id}", method = RequestMethod.GET)
     public String profileView(@PathVariable int user_id, Model model) {
+
         /* Add edit profile links if user id and session user id match? */
         Optional<User> user = userDao.findById(user_id);
-        model.addAttribute("user", user);
-
+        User userInfo = user.get();
+        model.addAttribute("user", userInfo);
         return "main/profile";
     }
 
