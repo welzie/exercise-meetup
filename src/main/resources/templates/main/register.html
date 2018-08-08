@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<div th:replace="fragments :: head"></div>
+
 <body class="container-fluid">
-<h1 class="title" th:text="${title}">Title</h1>
+<div th:replace="fragments :: navigation"></div>
 
-<nav th:replace="fragments :: navigation"></nav>
+<header class="header">
+    <div class="overlay">
+        <div class="container">
+            <div class="inputform">
+                <form th:object="${registerForm}" method="post" style="max-width:600px;">
+                    <div class="form-group">
+                        <label th:for="username">Username</label>
+                        <input class="form-control" th:field="*{username}" />
+                        <span th:errors="*{username}" class="error"></span>
+                    </div>
 
-<form th:object="${registerForm}" method="post" style="max-width:600px;">
-    <div class="form-group">
-        <label th:for="username">Username</label>
-        <input class="form-control" th:field="*{username}" />
-        <span th:errors="*{username}" class="error"></span>
+                    <div class="form-group">
+                        <label th:for="password">Password</label>
+                        <input class="form-control" th:field="*{password}" type="password" />
+                        <span th:errors="*{password}" class="error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label th:for="verifyPassword">Verify Password</label>
+                        <input class="form-control" th:field="*{verifyPassword}" type="password" />
+                        <span th:errors="*{verifyPassword}" class="error"></span>
+                    </div>
+
+                    <input type="submit" value="Register" />
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label th:for="password">Password</label>
-        <input class="form-control" th:field="*{password}" type="password" />
-        <span th:errors="*{password}" class="error"></span>
-    </div>
-
-    <div class="form-group">
-        <label th:for="verifyPassword">Verify Password</label>
-        <input class="form-control" th:field="*{verifyPassword}" type="password" />
-        <span th:errors="*{verifyPassword}" class="error"></span>
-    </div>
-
-    <input type="submit" value="Register" />
-</form>
+</header>
+<div th:replace="fragments :: js_scripts"></div>
 </body>
 </html>
