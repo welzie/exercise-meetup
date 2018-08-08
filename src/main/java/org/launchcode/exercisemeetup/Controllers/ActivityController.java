@@ -81,15 +81,19 @@ public class ActivityController extends AbstractController {
         if(completed == true) {
             activityInfo.setCompleted(true);
         }
-    
         model.addAttribute("activity", activityInfo);
         model.addAttribute("title", "New Activity");
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
         return "activity/view-activity";
-
-
     }
 
+    @RequestMapping(value="view-all")
+    public String viewAll(Model model) {
+        model.addAttribute("title", "View All Activities");
+        model.addAttribute("activities", activityDao.findAll());
+
+        return "activity/view-all-activities";
+    }
 
 }

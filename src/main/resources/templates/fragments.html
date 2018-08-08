@@ -34,6 +34,12 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/activity/add}">Add Activity</a>
             </li>
+            <li class="nav-item" th:if="${user}">
+                <a class="nav-link" th:href="@{/user/} + ${user.uid}">My Activities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/activity/view-all}">View All</a>
+            </li>
         </ul>
          <!--idea here is to add login/register/logout button in top right, but I can't find the right object to pass in the 'if' and 'unless' statements on the template. will revisit...-->
         <ul class="navbar-nav ml-auto">
