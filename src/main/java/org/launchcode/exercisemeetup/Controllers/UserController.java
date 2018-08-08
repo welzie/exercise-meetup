@@ -102,9 +102,8 @@ public class UserController extends AbstractController {
     public String profileView(@PathVariable int user_id, Model model) {
 
         /* Add edit profile links if user id and session user id match? */
-        Optional<User> user = userDao.findById(user_id);
-        User userInfo = user.get();
-        model.addAttribute("user", userInfo);
+        User user = userDao.findById(user_id).orElse(null);
+        model.addAttribute("user", user);
         return "main/profile";
     }
 
