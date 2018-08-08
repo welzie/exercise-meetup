@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container-fluid">
+
+
+<h1 class="title" th:text="${user.username}">Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div>
+    <h1 th:text="${user.username}"></h1>
+</div>
+
+<div>
+    <table class="table">
+
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Activity Type</th>
+            <th>Difficulty</th>
+            <th>User</th>
+            <th>Complete</th>
+            <th>Edit</th>
+        </tr>
+
+        <tr th:each="activity : ${user.activities}">
+            <td th:text="${activity.date}">TBD</td>
+            <td th:text="${activity.time}">TBD</td>
+            <td th:text="${activity.type}"></td>
+            <td th:text="${activity.level}"></td>
+            <td th:text="${activity.user.username}"></td>
+            <td th:if="${activity.completed}">Completed</td>
+            <td th:unless="${activity.completed}">Pending</td>
+            <td>TBD</td>
+        </tr>
+
+    </table>
+</div>
+
+
+</body>
+</html>
