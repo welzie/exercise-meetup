@@ -6,6 +6,7 @@ import org.launchcode.exercisemeetup.Models.data.ActivityDao;
 import org.launchcode.exercisemeetup.Models.data.ActivityType;
 import org.launchcode.exercisemeetup.Models.data.SkillLevel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -59,7 +61,7 @@ public class ActivityController extends AbstractController {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
             model.addAttribute("levels", SkillLevel.values());
-            model.addAttribute(new Activity());
+
             return "activity/add-activity";
         }
 
@@ -74,22 +76,33 @@ public class ActivityController extends AbstractController {
     }
 
     @RequestMapping(value="view/{activityId}")
-    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession, @RequestParam(value="completed", required = false) boolean completed){
+    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession, @RequestParam(value = "search_date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate search_date, @RequestParam(value="completed", required = false) boolean completed){
 
         Optional<Activity> activity = activityDao.findById(activityId);
         Activity activityInfo = activity.get();
         if(completed) {
             activityInfo.setCompleted(true);
         }
-    
         model.addAttribute("activity", activityInfo);
         model.addAttribute("title", "New Activity");
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
+        ArrayList<Activity> searchResult= new ArrayList<>();
+
+        if(search_date != null) {
+            searchResult=activityDao.findByDate(search_date);
+        }
+        model.addAttribute("searchResult",searchResult);
+
         return "activity/view-activity";
-
-
     }
 
+    @RequestMapping(value="view-all")
+    public String viewAll(Model model) {
+        model.addAttribute("title", "View All Activities");
+        model.addAttribute("activities", activityDao.findAll());
+
+        return "activity/view-all-activities";
+    }
 
 }

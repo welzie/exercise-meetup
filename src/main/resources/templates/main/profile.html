@@ -3,43 +3,49 @@
 <head th:replace="fragments :: head"></head>
 <body class="container-fluid">
 
-
-<h1 class="title" th:text="${user.username}">Title</h1>
-
 <nav th:replace="fragments :: navigation"></nav>
 
-<div>
-    <h1 th:text="${user.username}"></h1>
-</div>
+<header class="header">
+    <div class="overlay">
+        <div class="container">
+            <div class="inputform">
+                <div>
+                    <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
+                </div>
 
-<div class="flex-wrapper">
-        <div class="flex-container table-head">
+                <div class="flex-wrapper">
+                    <div class="flex-container table-head">
 
 
-            <span>Date</span>
-            <span>Time</span>
-            <span>Activity Type</span>
-            <span>Difficulty</span>
-            <span>User</span>
-            <span>Complete</span>
-            <span>Edit</span>
+                        <span>Date</span>
+                        <span>Time</span>
+                        <span>Activity Type</span>
+                        <span>Difficulty</span>
+                        <span>User</span>
+                        <span>Complete</span>
+                        <span>Edit</span>
+                    </div>
+
+                    <a th:each="activity : ${user.activities}" th:href="'/activity/view/' + ${activity.id}">
+                        <div class="flex-container">
+                            <span th:text="${activity.date}">TBD</span>
+                            <span th:text="${activity.time}">TBD</span>
+                            <span th:text="${activity.type}"></span>
+                            <span th:text="${activity.level}"></span>
+                            <span th:text="${activity.user.username}"></span>
+                            <span th:if="${activity.completed}">Completed</span>
+                            <span th:unless="${activity.completed}">Pending</span>
+                            <span>TBD</span>
+
+                        </div>
+                    </a>
+
+                </div>
+            </div>
         </div>
+    </div>
+</header>
 
-    <a th:each="activity : ${user.activities}" th:href="'/activity/view/' + ${activity.id}">
-        <div class="flex-container">
-            <span th:text="${activity.date}">TBD</span>
-            <span th:text="${activity.time}">TBD</span>
-            <span th:text="${activity.type}"></span>
-            <span th:text="${activity.level}"></span>
-            <span th:text="${activity.user.username}"></span>
-            <span th:if="${activity.completed}">Completed</span>
-            <span th:unless="${activity.completed}">Pending</span>
-            <span>TBD</span>
-
-        </div>
-    </a>
-
-</div>
-
+<div th:replace="fragments :: js_scripts"></div>
 </body>
 </html>
