@@ -1,68 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
-<body class="container-fluid">
-
-<div th:replace="fragments :: navigation"></div>
-
-<header class="header">
-    <div class="overlay">
-        <div class="container">
-            <div class="col-lg-8 inputform">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title" th:text="${activity.user.username}"></h4>
-                        <p th:text="${activity.type.name}"></p>
-                        <p th:text="${activity.level.name}"></p>
-                        <form th:unless="${activity.completed}" method="post">
-                            <input type="hidden" th:value="true" name="completed"/>
-                            <input type="submit" th:value="completed" />
-                        </form>
-                        <p th:if="${activity.completed}">Completed!</p>
-                    </div>
-                </div>
-            </div>
-            <div style="padding-top: 20px">
-                <!--<form th:action="@{/activity/view-activity}">-->
-                <form  method="post">
-                    <div class="form-group">
-                        <label th:for="search_date">Search by Date
-                            <input type="date"  name = "search_date">
-                        </label>
-                        <input type="submit" value="Search for Activities!"/>
-                    </div>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{default}">
+<head>
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <div class="col-lg-8 inputform">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${activity.user.username}"></h4>
+                <p th:text="${activity.type.name}"></p>
+                <p th:text="${activity.level.name}"></p>
+                <form th:unless="${activity.completed}" method="post">
+                    <input type="hidden" th:value="true" name="completed"/>
+                    <input type="submit" th:value="completed" />
                 </form>
-                </div>
-                </div>
-                <table class="table">
-
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Activity Type</th>
-                        <th>Difficulty</th>
-                        <th>User</th>
-                        <th>Complete</th>
-                        <th>Edit</th>
-                    </tr>
-
-                    <tr th:each="activity : ${activities}">
-                        <td th:text="${activity.date}">TBD</td>
-                        <td th:text="${activity.time}">TBD</td>
-                        <td th:text="${activity.type}"></td>
-                        <td th:text="${activity.level}"></td>
-                        <td th:text="${activity.user.username}"></td>
-                        <td th:if="${activity.completed}">Completed</td>
-                        <td th:unless="${activity.completed}">Pending</td>
-                        <td>TBD</td>
-                    </tr>
-                </table>
-                <a th:href="@{/activity/add}">Add</a> | <a href="#">Remove</a>
+                <p th:if="${activity.completed}">Completed!</p>
             </div>
         </div>
     </div>
-</header>
-<div th:replace="fragments :: js_scripts"></div>
+    <div style="padding-top: 20px">
+        <table class="table">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Activity Type</th>
+                <th>Difficulty</th>
+                <th>User</th>
+                <th>Complete</th>
+                <th>Edit</th>
+            </tr>
+
+            <tr th:each="activity : ${activities}">
+                <td th:text="${activity.date}">TBD</td>
+                <td th:text="${activity.time}">TBD</td>
+                <td th:text="${activity.type}"></td>
+                <td th:text="${activity.level}"></td>
+                <td th:text="${activity.user.username}"></td>
+                <td th:if="${activity.completed}">Completed</td>
+                <td th:unless="${activity.completed}">Pending</td>
+                <td>TBD</td>
+            </tr>
+        </table>
+        <a th:href="@{/activity/add}">Add</a> | <a href="#">Remove</a>
+    </div>
+</div>
+<th:block layout:fragment="scripts"></th:block>
 </body>
 <div th:replace="fragments :: results"></div>
 </html>

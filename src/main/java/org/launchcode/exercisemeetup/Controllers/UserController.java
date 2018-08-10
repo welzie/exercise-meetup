@@ -30,7 +30,7 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("title", "Index");
-    return "main/index";
+    return "main/landingpage";
     }
 
     @RequestMapping(value="register", method=RequestMethod.GET)
@@ -100,8 +100,9 @@ public class UserController extends AbstractController {
     }
     
     @RequestMapping(value = "logout", method=RequestMethod.POST)
-    public String logout(HttpServletRequest request) {
-        setUserInSession(request.getSession(), null);
+    public String logout(HttpSession session) {
+
+        setUserInSession(session, null);
         return "redirect:";
     }
 

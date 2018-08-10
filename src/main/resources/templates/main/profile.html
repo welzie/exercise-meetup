@@ -1,51 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
-<body class="container-fluid">
-
-<nav th:replace="fragments :: navigation"></nav>
-
-<header class="header">
-    <div class="overlay">
-        <div class="container">
-            <div class="inputform">
-                <div>
-                    <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
-                </div>
-
-                <div class="flex-wrapper">
-                    <div class="flex-container table-head">
-
-
-                        <span>Date</span>
-                        <span>Time</span>
-                        <span>Activity Type</span>
-                        <span>Difficulty</span>
-                        <span>User</span>
-                        <span>Complete</span>
-                        <span>Edit</span>
-                    </div>
-
-                    <a th:each="activity : ${user.activities}" th:href="'/activity/view/' + ${activity.id}">
-                        <div class="flex-container">
-                            <span th:text="${activity.date}">TBD</span>
-                            <span th:text="${activity.time}">TBD</span>
-                            <span th:text="${activity.type.name}"></span>
-                            <span th:text="${activity.level.name}"></span>
-                            <span th:text="${activity.user.username}"></span>
-                            <span th:if="${activity.completed}">Completed</span>
-                            <span th:unless="${activity.completed}">Pending</span>
-                            <span>TBD</span>
-
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-        </div>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{default}">
+<head>
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <div>
+        <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
     </div>
-</header>
 
-<div th:replace="fragments :: js_scripts"></div>
+    <div>
+        <table class="table">
+
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Activity Type</th>
+                <th>Difficulty</th>
+                <th>User</th>
+                <th>Complete</th>
+                <th>Edit</th>
+            </tr>
+
+            <tr th:each="activity : ${user.activities}">
+                <td th:text="${activity.date}"></td>
+                <td th:text="${activity.time}"></td>
+                <td th:text="${activity.type}"></td>
+                <td th:text="${activity.level}"></td>
+                <td th:text="${activity.user.username}"></td>
+                <td th:if="${activity.completed}">Completed</td>
+                <td th:unless="${activity.completed}">Pending</td>
+                <td>TBD</td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+<th:block layout:fragment="scripts"></th:block>
 </body>
 </html>
