@@ -35,7 +35,7 @@
                 <a class="nav-link" th:href="@{/activity/add}">Add Activity</a>
             </li>
             <li class="nav-item" th:if="${user}">
-                <a class="nav-link" th:href="@{/user/} + ${user.uid}">My Activities</a>
+                <a class="nav-link" th:href="@{/user/} + ${user.username}">My Activities</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/activity/view-all}">View All</a>
