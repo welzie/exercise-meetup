@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
-<body class="container-fluid">
-<h1 th:text="${title}">Title</h1>
-
-<nav th:replace="fragments :: navigation"></nav>
-
-
-<a href="/main/activity/add">New Activity</a>
-<p th:unless="${activities} and ${activities.size()}">No Activities to Display</p>
-
-
-<div class="container">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}">
+<head>
+    <title>ExerciseMeetup! Landing Page</title>
+</head>
+<body>
+<div class="content" layout:fragment="content">
     <h1>Activites</h1>
     <div class="row col-md-7 table-responsive">
         <table id="activityTable" class="table">
@@ -37,5 +32,6 @@
         </table>
     </div>
 </div>
+<th:block layout:fragment="scripts"></th:block>
 </body>
 </html>

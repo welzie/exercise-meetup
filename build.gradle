@@ -34,4 +34,5 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	//testCompile('org.springframework.security:spring-security-test')
+	compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 }
