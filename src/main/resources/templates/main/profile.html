@@ -12,33 +12,34 @@
     <h1 th:text="${user.username}"></h1>
 </div>
 
-<div>
-    <table class="table">
+<div class="flex-wrapper">
+        <div class="flex-container table-head">
 
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Activity Type</th>
-            <th>Difficulty</th>
-            <th>User</th>
-            <th>Complete</th>
-            <th>Edit</th>
-        </tr>
 
-        <tr th:each="activity : ${user.activities}">
-            <td th:text="${activity.date}">TBD</td>
-            <td th:text="${activity.time}">TBD</td>
-            <td th:text="${activity.type}"></td>
-            <td th:text="${activity.level}"></td>
-            <td th:text="${activity.user.username}"></td>
-            <td th:if="${activity.completed}">Completed</td>
-            <td th:unless="${activity.completed}">Pending</td>
-            <td>TBD</td>
-        </tr>
+            <span>Date</span>
+            <span>Time</span>
+            <span>Activity Type</span>
+            <span>Difficulty</span>
+            <span>User</span>
+            <span>Complete</span>
+            <span>Edit</span>
+        </div>
 
-    </table>
+    <a th:each="activity : ${user.activities}" th:href="'/activity/view/' + ${activity.id}">
+        <div class="flex-container">
+            <span th:text="${activity.date}">TBD</span>
+            <span th:text="${activity.time}">TBD</span>
+            <span th:text="${activity.type}"></span>
+            <span th:text="${activity.level}"></span>
+            <span th:text="${activity.user.username}"></span>
+            <span th:if="${activity.completed}">Completed</span>
+            <span th:unless="${activity.completed}">Pending</span>
+            <span>TBD</span>
+
+        </div>
+    </a>
+
 </div>
-
 
 </body>
 </html>
