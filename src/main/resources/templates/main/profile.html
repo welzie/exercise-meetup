@@ -30,8 +30,8 @@
                         <div class="flex-container">
                             <span th:text="${activity.date}">TBD</span>
                             <span th:text="${activity.time}">TBD</span>
-                            <span th:text="${activity.type}"></span>
-                            <span th:text="${activity.level}"></span>
+                            <span th:text="${activity.type.name}"></span>
+                            <span th:text="${activity.level.name}"></span>
                             <span th:text="${activity.user.username}"></span>
                             <span th:if="${activity.completed}">Completed</span>
                             <span th:unless="${activity.completed}">Pending</span>
