@@ -100,9 +100,12 @@ public class UserController extends AbstractController {
     }
     
     @RequestMapping(value = "logout", method=RequestMethod.POST)
-    public String logout(HttpServletRequest request) {
-        setUserInSession(request.getSession(), null);
-        return "redirect:";
+    public String logout(HttpSession session) {
+        if(!getUserFromSession(session).equals(null)) {
+            removeUserFromSession(session);
+        }
+
+        return "redirect:/";
     }
 
     @RequestMapping(value = "user/{username}", method = RequestMethod.GET)
