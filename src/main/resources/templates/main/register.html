@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{default}">
 <head>
-    <title>${title}</title>
+    <title th:text="${title}">Default Title</title>
 </head>
 <body>
     <div class="content" layout:fragment="content">

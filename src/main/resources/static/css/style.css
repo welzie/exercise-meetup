@@ -1,12 +1,12 @@
-.header{
-    background-image: url('../images/bicycle_background.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
+.header {
+  background-image: url("../images/bicycle_background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
 
-.errors{
-    color: red;
+.errors {
+  color: red;
 }
 
 .content{
@@ -14,13 +14,13 @@
     padding-left: 20%;
 }
 
-.overlay{
- position: absolute;
- min-height: 100%;
- min-width: 100%;
- left: 0;
- top: 0;
- background: rgba(244, 244, 244, 0.79);
+.overlay {
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(244, 244, 244, 0.79);
 }
 
 .container-fluid {
@@ -28,51 +28,79 @@
 }
 
 body {
-    padding-top: 80px;
-    position: relative;
+  padding-top: 80px;
+  position: relative;
 }
 
-.description{
-    position: absolute;
-    top: 30%;
-    margin: auto;
-    padding: 2em;
-
-}
-.description h1{
- color:#C51728 ;
-}
-.description p{
- color:#666;
- font-size: 20px;
- width: 50%;
- line-height: 1.5;
-}
-.description button{
- border:1px  solid #C51728;
- background:#C51728;
- color:#fff;
+.description {
+  position: absolute;
+  top: 30%;
+  margin: auto;
+  padding: 2em;
 }
 
-.navbar{
- background:#C51728;
-}
-.nav-link , .navbar-brand{
- color: #f4f4f4;
- cursor: pointer;
+.description h1 {
+  color: #C51728;
 }
 
-.nav-link:hover{
- background: #f4f4f4;
- color: #C51728;
-
+.description p {
+  color: #666;
+  font-size: 20px;
+  width: 50%;
+  line-height: 1.5;
 }
 
-.navbar-toggler{
-  background:#fff !important;
+.description button {
+  border: 1px solid #C51728;
+  background: #C51728;
+  color: #fff;
 }
 
-.container .card{
-    background: #ff3333;
-    color: #f4f4f4;
+.navbar {
+  background: #C51728;
 }
+
+.nav-link, .navbar-brand {
+  color: #f4f4f4;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background: #f4f4f4;
+  color: #C51728;
+}
+
+.navbar-toggler {
+  background: #fff !important;
+}
+
+.container .card {
+  background: #C51728;
+  color: #f4f4f4;
+}
+
+.flex-wrapper .table-head {
+  border-bottom: 2px solid #212529;
+  font-size: bold;
+}
+.flex-wrapper a {
+  text-decoration: none;
+  color: #212529;
+}
+.flex-wrapper a :hover {
+  text-decoration: none;
+  background-color: #C51728;
+  color: #f4f4f4;
+}
+.flex-wrapper .flex-container {
+  display: flex;
+  color: #212529;
+  transition: background-color 1s ease;
+}
+.flex-wrapper .flex-container span {
+  width: 15%;
+  min-width: 50px;
+  transition: background-color 1s ease;
+}
+
+/*# sourceMappingURL=style.css.map */

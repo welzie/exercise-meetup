@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{default}">
 <head>
-    <title>${title}</title>
+    <title th:text="${title}">Default Title</title>
 </head>
 <body>
 <div class="content" layout:fragment="content">
@@ -23,7 +24,6 @@
     </div>
     <div style="padding-top: 20px">
         <table class="table">
-
             <tr>
                 <th>Date</th>
                 <th>Time</th>
@@ -50,4 +50,5 @@
 </div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
+<div th:replace="fragments :: results"></div>
 </html>

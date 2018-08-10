@@ -38,14 +38,16 @@ public class Activity{
     private ActivityType type;
 
 
-    @NotNull
+    @NotNull(message = "Please select a level.")
     private SkillLevel level;
 
 
     @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
+    @NotNull(message = "Please select a date.")
     private LocalDate date; //using dateformat data type
 
     @DateTimeFormat(pattern = TIME_FORMAT_PATTERN)
+    @NotNull(message = "Please select a time.")
     private LocalTime time;
 
     @ManyToOne

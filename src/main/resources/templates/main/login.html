@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{default}">
 <head>
-    <title>${title}</title>
+    <title th:text="${title}">Default Title</title>
 </head>
 <body>
 <div class="content" layout:fragment="content">
@@ -15,9 +16,7 @@
         </div>
         <div class="form-group">
             <label th:for="password">Password</label>
-
             <input class="form-control" th:field="*{password}" th:type="password" />
-
             <span th:errors="*{password}" class="error"></span>
         </div>
 
