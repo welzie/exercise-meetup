@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{default}">
+<head>
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+    <div class="description" layout:fragment="content">
+            <h3>
+                Hi there! Welcome to our web app!
+                <p>
+                    We built this as part of the Lift Off program from launch Code. There are 4 of us working on project. We really hope you love it. This landing page is powered by a layout!
+                </p>
+                <a th:href="@{register}"><button class="btn btn-outline-secondary btn-lg">Register</button></a><span> | <a th:href="@{login}"><button class="btn btn-outline-secondary btn-lg">Sign In</button></a></span>
+            </h3>
+        </div>
+    </div>
+<th:block layout:fragment="scripts"></th:block>
+</body>
+</html>

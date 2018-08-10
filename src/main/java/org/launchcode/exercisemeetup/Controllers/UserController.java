@@ -30,7 +30,7 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("title", "Index");
-    return "main/index";
+    return "main/landingpage";
     }
 
     @RequestMapping(value="register", method=RequestMethod.GET)
