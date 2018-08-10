@@ -55,5 +55,26 @@
     </div>
 </nav>
 
+<div th:fragment="results">
+
+    <h1 th:if="${searchResult}" th:text="'Result(s) ' + ${searchResult.size()} + ' Activities'"></h1>
+
+    <div th:if="${searchResult} and ${searchResult.size()}">
+
+        <table>
+                <tr th:each="activity: ${searchResult}">
+
+                    <td th:text="${activity.date}"></td>
+                    <td th:text="${activity.time}"> </td>
+                    <td th:text="${activity.type}"></td>
+                    <td th:text="${activity.level}"></td>
+                    <td th:text="${activity.user.username}"></td>
+
+                </tr>
+
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
