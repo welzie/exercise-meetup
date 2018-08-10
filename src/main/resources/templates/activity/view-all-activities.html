@@ -23,7 +23,7 @@
                             <th>Edit</th>
                         </tr>
 
-                        <tr th:each="activity : ${user.activities}">
+                        <tr th:each="activity : ${activities}">
                             <td th:text="${activity.date}"></td>
                             <td th:text="${activity.time}"></td>
                             <td th:text="${activity.type}"></td>
