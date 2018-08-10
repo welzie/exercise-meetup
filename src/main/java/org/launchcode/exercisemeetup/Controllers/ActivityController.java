@@ -78,7 +78,7 @@ public class ActivityController extends AbstractController {
 
         Optional<Activity> activity = activityDao.findById(activityId);
         Activity activityInfo = activity.get();
-        if(completed == true) {
+        if(completed) {
             activityInfo.setCompleted(true);
         }
     
