@@ -26,6 +26,7 @@
                             <label th:for="level"> <input type="radio" name="level"
                                            th:each="level : ${levels}" th:text="${level.name}" th:value="${level}" >
                             </label>
+                            <span th:errors="*{level}" class="error"></span>
                         </div>
                     </div>
 
@@ -34,12 +35,14 @@
                             <input type="date" th:feild="*{date}" name = "date"> <!--passing the date object to the view. i think here is where it is getting string-->
                             <!--data type-->
                         </label>
+                        <span th:errors="*{date}" class="error"></span>
                     </div>
                     <div class="form-group">
                         <label th:for="time">Time
                             <input type="time" th:feild="*{time}" name = "time"> <!--passing the date object to the view. i think here is where it is getting string-->
                             <!--data type-->
                         </label>
+                        <span th:errors="*{time}" class="error"></span>
                     </div>
                     <input type="submit" value="Add Activity" />
                 </form>

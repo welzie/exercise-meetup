@@ -23,6 +23,17 @@
                 </div>
             </div>
             <div style="padding-top: 20px">
+                <!--<form th:action="@{/activity/view-activity}">-->
+                <form  method="post">
+                    <div class="form-group">
+                        <label th:for="search_date">Search by Date
+                            <input type="date"  name = "search_date">
+                        </label>
+                        <input type="submit" value="Search for Activities!"/>
+                    </div>
+                </form>
+                </div>
+                </div>
                 <table class="table">
 
                     <tr>
@@ -53,4 +64,5 @@
 </header>
 <div th:replace="fragments :: js_scripts"></div>
 </body>
+<div th:replace="fragments :: results"></div>
 </html>

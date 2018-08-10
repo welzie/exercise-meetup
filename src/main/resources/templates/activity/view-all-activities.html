@@ -10,11 +10,7 @@
     <div class="overlay">
         <div class="container">
             <div class="inputform">
-                <div>
-                    <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
-                </div>
-
-                <div>
+                                <div>
                     <table class="table">
 
                         <tr>
@@ -27,7 +23,7 @@
                             <th>Edit</th>
                         </tr>
 
-                        <tr th:each="activity : ${user.activities}">
+                        <tr th:each="activity : ${activities}">
                             <td th:text="${activity.date}"></td>
                             <td th:text="${activity.time}"></td>
                             <td th:text="${activity.type}"></td>
