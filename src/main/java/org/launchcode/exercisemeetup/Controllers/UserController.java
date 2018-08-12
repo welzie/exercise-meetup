@@ -102,7 +102,7 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "logout", method=RequestMethod.POST)
     public String logout(HttpSession session) {
 
-        setUserInSession(session, null);
+        session.removeAttribute("user_id");
         return "redirect:";
     }
 
