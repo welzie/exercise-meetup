@@ -23,6 +23,14 @@
         </div>
     </div>
     <div style="padding-top: 20px">
+        <form  method="post">
+            <div class="form-group">
+                <label th:for="search_date">Search by Date
+                    <input type="date"  name = "search_date">
+                </label>
+                <input type="submit" value="Search for Activities!"/>
+            </div>
+        </form>
         <table class="table">
             <tr>
                 <th>Date</th>
@@ -42,13 +50,14 @@
                 <td th:text="${activity.user.username}"></td>
                 <td th:if="${activity.completed}">Completed</td>
                 <td th:unless="${activity.completed}">Pending</td>
-                <td>TBD</td>
+                <td><a href="test.html" th:href="@{/activity/edit(id=${activity.id})}">edit</a></td>
             </tr>
         </table>
         <a th:href="@{/activity/add}">Add</a> | <a href="#">Remove</a>
     </div>
+    <div th:replace="fragments :: results"></div>
 </div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
-<div th:replace="fragments :: results"></div>
+
 </html>
