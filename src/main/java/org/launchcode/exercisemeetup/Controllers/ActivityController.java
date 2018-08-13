@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,14 +77,16 @@ public class ActivityController extends AbstractController {
     }
 
     @RequestMapping(value="view/{activityId}")
-    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession, @RequestParam(value = "search_date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate search_date, @RequestParam(value="completed", required = false) boolean completed){
+    public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession,
+                               @RequestParam(value = "search_date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate search_date,
+                               @RequestParam(value="completed", required = false) boolean completed){
 
-        Optional<Activity> activity = activityDao.findById(activityId);
-        Activity activityInfo = activity.get();
+       Activity activity = activityDao.findById(activityId);
+
         if(completed) {
-            activityInfo.setCompleted(true);
+            activity.setCompleted(true);
         }
-        model.addAttribute("activity", activityInfo);
+        model.addAttribute("activity", activity);
         model.addAttribute("title", "New Activity");
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
@@ -103,6 +106,48 @@ public class ActivityController extends AbstractController {
         model.addAttribute("activities", activityDao.findAll());
 
         return "activity/view-all-activities";
+    }
+
+
+    @RequestMapping(value="edit", method = RequestMethod.GET)
+    public String displayEditActivity(Model model, @RequestParam int id ){
+
+
+        Activity activity = activityDao.findById(id);
+        model.addAttribute("title", activity.getType());
+        model.addAttribute("activity", activity);
+        model.addAttribute("types", ActivityType.values());
+        model.addAttribute("levels", SkillLevel.values());
+
+
+
+        return "activity/edit";
+    }
+    @RequestMapping(value="edit", method = RequestMethod.POST)
+    public String ProcessEditActivity(Model model, @RequestParam int id, @RequestParam(value = "type", required = false) ActivityType type,
+                                      @RequestParam(value = "date", required = false)@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date, @RequestParam(value = "level", required = false)
+    SkillLevel level, @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time){
+        Activity activity = activityDao.findById(id);
+
+        activity.setType(type);
+        activityDao.save(activity);
+
+
+        if(date != null){
+            activity.setDate(date);
+            activityDao.save(activity);
+
+        }
+        if(level != null){
+            activity.setLevel(level);
+            activityDao.save(activity);
+        }
+        if(time != null){
+            activity.setTime(time);
+            activityDao.save(activity);
+        }
+
+    return "main/profile";
     }
 
 }

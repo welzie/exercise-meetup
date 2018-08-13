@@ -19,7 +19,7 @@
                     <th>Difficulty</th>
                     <th>User</th>
                     <th>Complete</th>
-                    <th>Edit</th>
+
                 </tr>
 
                 <tr th:each="activity : ${activities}">
@@ -30,7 +30,7 @@
                     <td th:text="${activity.user.username}"></td>
                     <td th:if="${activity.completed}">Completed</td>
                     <td th:unless="${activity.completed}">Pending</td>
-                    <td>TBD</td>
+
                 </tr>
             </table>
         </div>
