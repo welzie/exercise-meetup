@@ -55,8 +55,9 @@
         </table>
         <a th:href="@{/activity/add}">Add</a> | <a href="#">Remove</a>
     </div>
+    <div th:replace="fragments :: results"></div>
 </div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
-<div th:replace="fragments :: results"></div>
+
 </html>
