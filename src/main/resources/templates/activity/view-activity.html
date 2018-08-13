@@ -51,13 +51,14 @@
                 <td th:text="${activity.user.username}"></td>
                 <td th:if="${activity.completed}">Completed</td>
                 <td th:unless="${activity.completed}">Pending</td>
-                <td>TBD</td>
+                <td><a href="test.html" th:href="@{/activity/edit(id=${activity.id})}">Edit</a></td>
             </tr>
         </table>
         <a th:href="@{/activity/add}">Add</a> | <a href="#">Remove</a>
     </div>
+    <div th:replace="fragments :: results"></div>
 </div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
-<div th:replace="fragments :: results"></div>
+
 </html>
