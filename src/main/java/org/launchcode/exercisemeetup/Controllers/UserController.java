@@ -58,6 +58,9 @@ public class UserController extends AbstractController {
         }
 
         User newUser = new User(form.getUsername(), form.getPassword());
+
+        /*insert call to api haveibeenpwned here*/
+
         userDao.save(newUser);
         setUserInSession(request.getSession(), newUser);
 

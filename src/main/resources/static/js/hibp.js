@@ -1,11 +1,10 @@
-$(document).ready(function(){
- $('.header').height($(window).height());
-})
 /*
+scripts to run the haveIbeenpwned.com api integration*/
 
-function checkusername(uName) {
+
+function checkusername(username) {
     return $.ajax({
-        url: 'https://haveibeenpwned.com/api/v2/breachedaccount/' + uName + '?includeUnverified=true',
+        url: 'https://haveibeenpwned.com/api/v2/breachedaccount/' + username + '?includeUnverified=true',
         type: 'GET',
         dataType: 'json',
         success:function(data) {
@@ -21,4 +20,3 @@ function checkusername(uName) {
         }
     });
 }
-*/

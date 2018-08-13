@@ -28,7 +28,16 @@
             </div>
 
             <input type="submit" value="Register" />
+
         </form>
+        <form id="checkUname">
+            <div class="form-group">
+                <label for="uName">UserNametoChceck</label>
+                <input class="form-contronl" field="uName" />
+            </div>
+            <input type="submit" value="Pwned?" onclick="checkusername();return false();" />
+        </form>
+        <div id="results"></div>
     </div>
     <th:block layout:fragment="scripts"></th:block>
 </body>
