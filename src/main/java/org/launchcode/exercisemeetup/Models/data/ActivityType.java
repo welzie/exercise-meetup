@@ -6,8 +6,8 @@ public enum ActivityType {
 
 
 
-        MOUNTAINBIKING ("Montain Biking"),
-        RODEBIKING ("Rode Biking"),
+        MOUNTAINBIKING ("Mountain Biking"),
+        ROADBIKING ("Road Biking"),
         JOGGING ("Jogging"),
         SWIMMING ("Swimming"),
         HIKING ("Hiking"),

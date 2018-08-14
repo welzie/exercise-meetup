@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{default}">
+<head>
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <h1 th:text="'Hello, '+${activity.user.username}+ ', edit your activity for '+ ${activity.type.name}+'  here.'"></h1>
+
+    <form method="post" style="max-width:600px;" th:object="${activity}">
+        <div class="form-group">
+            <label th:for="type">Activity Type</label>
+            <select name="type">
+                <option th:value="${activity.type}">No Change</option>
+                <option th:each="type : ${types}"
+                        th:text="${type.name}"
+                        th:value="${type}"></option>
+
+
+            </select>
+            <input th:type="hidden" th:field="${activity.id}"/>
+        </div>
+        <div class="form-group">
+            <label>Skill Level</label>
+            <div class="radio">
+                <label th:for="level"> <input type="radio" name="level"
+                                              th:each="level : ${levels}" th:text="${level.name}" th:value="${level}" >
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label th:for="date">Date
+                <input type="date" th:feild="*{date}" name = "date">
+            </label>
+        </div>
+        <div class="form-group">
+            <label th:for="time">Time
+                <input type="time" th:feild="*{time}" name = "time">
+            </label>
+        </div>
+        <input type="submit" value="Add Activity" />
+    </form>
+</div>
+</div>
+
+<th:block layout:fragment="scripts"></th:block>
+</body>
+</html>

@@ -20,4 +20,6 @@ public interface ActivityDao extends CrudRepository<Activity, Integer> {
 
     public ArrayList<Activity> findByDate(LocalDate date);
 
+    public Activity findById(int id);
+
 }
