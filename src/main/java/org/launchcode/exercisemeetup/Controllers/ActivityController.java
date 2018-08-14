@@ -79,6 +79,9 @@ public class ActivityController extends AbstractController {
     @RequestMapping(value="view/{activityId}")
     public String viewActivity(@PathVariable int activityId, Model model, HttpSession httpSession,
                                @RequestParam(value = "search_date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate search_date,
+                               @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time,
+                               @RequestParam(value = "type", required = false) String type,
+                               @RequestParam(value = "level", required = false) String level,
                                @RequestParam(value="completed", required = false) boolean completed){
 
        Activity activity = activityDao.findById(activityId);
@@ -88,66 +91,92 @@ public class ActivityController extends AbstractController {
         }
         model.addAttribute("activity", activity);
         model.addAttribute("title", "New Activity");
+        model.addAttribute("types", ActivityType.values());
+        model.addAttribute("levels", SkillLevel.values());
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
-        ArrayList<Activity> searchResult= new ArrayList<>();
-
-        if(search_date != null) {
-            searchResult=activityDao.findByDate(search_date);
-        }
-        model.addAttribute("searchResult",searchResult);
-
         return "activity/view-activity";
+
+
     }
 
-    @RequestMapping(value="view-all")
-    public String viewAll(Model model) {
+    @RequestMapping(value="results")
+    public String search(Model model,@RequestParam(value = "search_date", required = false)
+                             @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate search_date,
+                         @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time,
+                         @RequestParam(value = "type", required = false) ActivityType type,
+                         @RequestParam(value = "level", required = false) SkillLevel level) {
+
+        ArrayList<Activity> searchResult = new ArrayList<>();
+
+        if (search_date != null) {
+            searchResult = activityDao.findByDate(search_date);
+            }
+        if (time != null) {
+            searchResult = activityDao.findByTime(time);
+            }
+        if (type != null) {
+            searchResult = activityDao.findByType(type);
+            }
+        if (level != null) {
+            searchResult = activityDao.findByLevel(level);
+            }
+
+
+            model.addAttribute("searchResult", searchResult);
+
+            return "activity/search-results";
+
+
+        }
+    @RequestMapping(value = "view-all")
+    public String viewAll (Model model){
         model.addAttribute("title", "View All Activities");
         model.addAttribute("activities", activityDao.findAll());
 
-        return "activity/view-all-activities";
-    }
-
-
-    @RequestMapping(value="edit", method = RequestMethod.GET)
-    public String displayEditActivity(Model model, @RequestParam int id ){
-
-
-        Activity activity = activityDao.findById(id);
-        model.addAttribute("title", activity.getType());
-        model.addAttribute("activity", activity);
-        model.addAttribute("types", ActivityType.values());
-        model.addAttribute("levels", SkillLevel.values());
-
-
-
-        return "activity/edit";
-    }
-    @RequestMapping(value="edit", method = RequestMethod.POST)
-    public String ProcessEditActivity(Model model, @RequestParam int id, @RequestParam(value = "type", required = false) ActivityType type,
-                                      @RequestParam(value = "date", required = false)@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date, @RequestParam(value = "level", required = false)
-    SkillLevel level, @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time){
-        Activity activity = activityDao.findById(id);
-
-        activity.setType(type);
-        activityDao.save(activity);
-
-
-        if(date != null){
-            activity.setDate(date);
-            activityDao.save(activity);
-
-        }
-        if(level != null){
-            activity.setLevel(level);
-            activityDao.save(activity);
-        }
-        if(time != null){
-            activity.setTime(time);
-            activityDao.save(activity);
+            return "activity/view-all-activities";
         }
 
-    return "main/profile";
-    }
 
-}
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    public String displayEditActivity (Model model,@RequestParam int id){
+
+            Activity activity = activityDao.findById(id);
+            model.addAttribute("title", activity.getType());
+            model.addAttribute("activity", activity);
+            model.addAttribute("types", ActivityType.values());
+            model.addAttribute("levels", SkillLevel.values());
+
+
+            return "activity/edit";
+        }
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public String ProcessEditActivity (Model model,@RequestParam int id,
+        @RequestParam(value = "type", required = false) ActivityType type,
+        @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+        @RequestParam(value = "level", required = false) SkillLevel level,
+        @RequestParam(value = "time", required = false) @DateTimeFormat(pattern = "HH:mm") LocalTime time){
+            Activity activity = activityDao.findById(id);
+
+            activity.setType(type);
+            activityDao.save(activity);
+
+
+            if (date != null) {
+                activity.setDate(date);
+                activityDao.save(activity);
+
+            }
+            if (level != null) {
+                activity.setLevel(level);
+                activityDao.save(activity);
+            }
+            if (time != null) {
+                activity.setTime(time);
+                activityDao.save(activity);
+            }
+
+            return "main/profile";
+        }
+
+    }

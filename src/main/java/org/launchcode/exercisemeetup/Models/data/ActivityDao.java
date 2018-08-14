@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,5 +22,11 @@ public interface ActivityDao extends CrudRepository<Activity, Integer> {
     public ArrayList<Activity> findByDate(LocalDate date);
 
     public Activity findById(int id);
+
+    public ArrayList<Activity> findByType(ActivityType String);
+
+    public ArrayList<Activity>findByLevel(SkillLevel String);
+
+    public ArrayList<Activity>findByTime(LocalTime time);
 
 }
