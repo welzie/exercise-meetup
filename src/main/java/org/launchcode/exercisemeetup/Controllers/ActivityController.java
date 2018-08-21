@@ -21,9 +21,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
+
 
 @Controller
 @RequestMapping("activity")
@@ -54,17 +53,29 @@ public class ActivityController extends AbstractController {
         }
     }
 
-    @RequestMapping(value="add", method= RequestMethod.POST) //error is happening in the @valid activity new activity
-    //failing to convert data type string to needed dateformat data type
+    @RequestMapping(value="add", method= RequestMethod.POST)
     public String processAddActivity(@ModelAttribute @Valid Activity newActivity, Errors errors,  Model model, HttpSession httpSession) {
 
-        if (errors.hasErrors()) {
+        Optional <LocalDate> date = Optional.ofNullable(newActivity.getDate());
+        Boolean futureDate;
+        if (date.isPresent()) {
+            futureDate = newActivity.getDate().isBefore(LocalDate.now());
+
+
+        }else futureDate = false;
+
+        if (errors.hasErrors() || futureDate ==true) {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
             model.addAttribute("levels", SkillLevel.values());
+            model.addAttribute("error",futureDate);
+
+
+
 
             return "activity/add-activity";
         }
+
 
         newActivity.setUser(getUserFromSession(httpSession));
 
