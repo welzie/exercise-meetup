@@ -20,6 +20,7 @@
                 </form>
                 <p th:if="${activity.completed}">Completed!</p>
             </div>
+            <a th:if="${owner}" th:href="@{/activity/delete(id=${activity.id})}">delete</a>
         </div>
     </div>
     <div style="padding-top: 20px">
