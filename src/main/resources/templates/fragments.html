@@ -61,7 +61,14 @@
 
     <div th:if="${searchResult} and ${searchResult.size()}">
 
-        <table>
+        <table class="table">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Activity Type</th>
+                <th>Difficulty</th>
+                <th>User</th>
+            </tr>
                 <tr th:each="activity: ${searchResult}">
 
                     <td th:text="${activity.date}"></td>
