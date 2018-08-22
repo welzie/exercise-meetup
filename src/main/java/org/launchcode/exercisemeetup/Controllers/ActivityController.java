@@ -109,18 +109,52 @@ public class ActivityController extends AbstractController {
 
         ArrayList<Activity> searchResult = new ArrayList<>();
 
-        if (search_date != null) {
+        if (search_date != null && time!=null && type !=null && level !=null) {
+            searchResult = activityDao.findByDateAndTimeAndTypeAndLevel(search_date, time, type, level);
+            }
+        else if (search_date !=null && type !=null && level!=null) {
+            searchResult = activityDao.findByDateAndTypeAndLevel(search_date,type,level);
+            }
+        else if (search_date !=null && time !=null && level!=null) {
+            searchResult = activityDao.findByDateAndTimeAndLevel(search_date, time, level);
+            }
+        else if (search_date !=null && time!=null && type != null) {
+            searchResult = activityDao.findByDateAndTimeAndType(search_date, time, type);
+            }
+        else if (time !=null && type !=null && level !=null) {
+            searchResult = activityDao.findByTimeAndTypeAndLevel(time,type,level);
+            }
+        else if (time !=null && type !=null) {
+            searchResult = activityDao.findByTimeAndType(time,type);
+            }
+        else if (time !=null && level !=null) {
+            searchResult = activityDao.findByTimeAndLevel(time,level);
+            }
+        else if (type !=null && level !=null){
+            searchResult = activityDao.findByTypeAndLevel(type,level);
+            }
+        else if (search_date != null && type !=null) {
+            searchResult = activityDao.findByDateAndType(search_date,type);
+            }
+        else if (search_date !=null && level!=null) {
+        searchResult = activityDao.findByDateAndLevel(search_date,level);
+            }
+        else if (search_date !=null && time != null) {
+            searchResult = activityDao.findByDateAndTime(search_date,time);
+            }
+        else if (search_date != null) {
             searchResult = activityDao.findByDate(search_date);
             }
-        if (time != null) {
+        else if (time !=null) {
             searchResult = activityDao.findByTime(time);
             }
-        if (type != null) {
+        else if (type !=null) {
             searchResult = activityDao.findByType(type);
             }
-        if (level != null) {
-            searchResult = activityDao.findByLevel(level);
-            }
+        else if (level !=null) {
+            searchResult =activityDao.findByLevel(level);
+        }
+
 
 
             model.addAttribute("searchResult", searchResult);
