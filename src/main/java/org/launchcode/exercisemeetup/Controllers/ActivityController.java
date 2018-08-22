@@ -2,6 +2,7 @@ package org.launchcode.exercisemeetup.Controllers;
 
 
 import org.launchcode.exercisemeetup.Models.Activity;
+import org.launchcode.exercisemeetup.Models.User;
 import org.launchcode.exercisemeetup.Models.data.ActivityDao;
 import org.launchcode.exercisemeetup.Models.data.ActivityType;
 import org.launchcode.exercisemeetup.Models.data.SkillLevel;
@@ -84,11 +85,18 @@ public class ActivityController extends AbstractController {
                                @RequestParam(value = "level", required = false) String level,
                                @RequestParam(value="completed", required = false) boolean completed){
 
+
        Activity activity = activityDao.findById(activityId);
+       int activityOwnerId = activity.getUser().getUid();
+       
+        if (getUserFromSession(httpSession) != null && activityOwnerId == getUserFromSession(httpSession).getUid()) {
+            model.addAttribute("owner", true);
+        }
 
         if(completed) {
             activity.setCompleted(true);
         }
+
         model.addAttribute("activity", activity);
         model.addAttribute("title", "New Activity");
         model.addAttribute("types", ActivityType.values());
@@ -172,29 +180,33 @@ public class ActivityController extends AbstractController {
         }
 
 
+
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String displayEditActivity (Model model,@RequestParam int id){
 
-            Activity activity = activityDao.findById(id);
-            model.addAttribute("title", activity.getType());
-            model.addAttribute("activity", activity);
-            model.addAttribute("types", ActivityType.values());
-            model.addAttribute("levels", SkillLevel.values());
+        Activity activity = activityDao.findById(id);
+        model.addAttribute("title", activity.getType());
+        model.addAttribute("activity", activity);
+        model.addAttribute("types", ActivityType.values());
+        model.addAttribute("levels", SkillLevel.values());
 
 
-            return "activity/edit";
+
+
+        return "activity/edit";
         }
-    @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String ProcessEditActivity (Model model,@RequestParam int id,
-        @RequestParam(value = "type", required = false) ActivityType type,
-        @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-        @RequestParam(value = "level", required = false) SkillLevel level,
-        @RequestParam(value = "time", required = false) @DateTimeFormat(pattern = "HH:mm") LocalTime time){
-            Activity activity = activityDao.findById(id);
+    @RequestMapping(value="edit", method = RequestMethod.POST)
+    public String ProcessEditActivity(Model model,
+                                      @RequestParam int id,
+                                      @RequestParam(value = "type", required = false) ActivityType type,
+                                      @RequestParam(value = "date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
+                                      @RequestParam(value = "level", required = false) SkillLevel level,
+                                      @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time){
+        Activity activity = activityDao.findById(id);
+
 
             activity.setType(type);
             activityDao.save(activity);
-
 
             if (date != null) {
                 activity.setDate(date);
@@ -213,4 +225,23 @@ public class ActivityController extends AbstractController {
             return "main/profile";
         }
 
+
+    @RequestMapping(value="delete")
+    public String deleteActivity(Model model, @RequestParam int id, HttpSession session) {
+        Activity activity = activityDao.findById(id);
+        int uid = getUserFromSession(session).getUid();
+
+        if (activity.getUser().getUid() == uid) {
+            activityDao.deleteById(id);
+            return "redirect:/user/" + getUserFromSession(session).getUsername();
+        } else if (getUserFromSession(session) == null) {
+            /* TODO: if the user doesn't own the activity throw an error*/
+            return "redirect:/login";
+        }
+
+        /*TODO: show error on redirect */
+        return "redirect:/";
     }
+
+}
+
