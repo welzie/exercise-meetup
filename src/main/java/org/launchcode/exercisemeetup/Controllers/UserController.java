@@ -57,9 +57,7 @@ public class UserController extends AbstractController {
             return "main/register";
         }
 
-        User newUser = new User(form.getUsername(), form.getPassword());
-
-        /*insert call to api haveibeenpwned here*/
+        User newUser = new User(form.getUsername(), form.getPassword(), form.getLastBreach());
 
         userDao.save(newUser);
         setUserInSession(request.getSession(), newUser);
@@ -116,5 +114,11 @@ public class UserController extends AbstractController {
         User user = userDao.findByUsername(username);
         model.addAttribute("user", user);
         return "main/profile";
+    }
+
+    @RequestMapping(value = "jQ")
+    public String displayJQTest(Model model) {
+        model.addAttribute("title", "jQ Test!");
+        return "main/jQ_test";
     }
 }
