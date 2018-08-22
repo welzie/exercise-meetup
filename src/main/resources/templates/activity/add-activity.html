@@ -17,19 +17,21 @@
                         th:text="${type.name}"
                         th:value="${type}"></option>
             </select>
+
             <input th:type="hidden" th:field="${activity.id}"/>
         </div>
         <div class="form-group">
             <label>Skill Level</label>
-            <!--<div class="radio"  >-->
-                <label th:for="level"  th:each="level : ${levels}" type="radio">
-                    <input th:type="radio"  th:value="${level}"   th:text="${level.name}"   />
-
-                <!--working on putting radio types in <label> tag to make each name clickable does not work with this current code-->
-
+            <div class="radio">
+                <label th:for="level"> <input type="radio" name="level"
+                                              th:each="level : ${levels}" th:text="${level.name}" th:value="${level}" >
                 </label>
+            </div>
+
+
+
                 <span th:errors="*{level}" class="error"></span>
-            <!--</div>-->
+
         </div>
 
         <div class="form-group">

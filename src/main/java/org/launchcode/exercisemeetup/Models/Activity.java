@@ -34,7 +34,7 @@ public class Activity{
     private int id;
 
 
-    @NotNull
+    @NotNull(message = "Please select an activity type.")
     private ActivityType type;
 
 
