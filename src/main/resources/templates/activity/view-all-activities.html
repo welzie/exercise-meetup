@@ -25,8 +25,8 @@
                 <tr th:each="activity : ${activities}">
                     <td th:text="${activity.date}"></td>
                     <td th:text="${activity.time}"></td>
-                    <td th:text="${activity.type}"></td>
-                    <td th:text="${activity.level}"></td>
+                    <td th:text="${activity.type.name}"></td>
+                    <td th:text="${activity.level.name}"></td>
                     <td th:text="${activity.user.username}"></td>
                     <td th:if="${activity.completed}">Completed</td>
                     <td th:unless="${activity.completed}">Pending</td>
