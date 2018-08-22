@@ -36,6 +36,10 @@ public abstract class AbstractController {
         session.setAttribute(userSessionKey, user.getUid());
     }
 
+    protected void removeUserFromSession(HttpSession session) {
+        session.removeAttribute("user_id");
+    }
+
     @ModelAttribute("user")
     public User getUserForModel(HttpServletRequest request) {
         return getUserFromSession(request.getSession());
