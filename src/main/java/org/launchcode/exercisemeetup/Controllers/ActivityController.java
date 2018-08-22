@@ -186,6 +186,8 @@ public class ActivityController extends AbstractController {
     public String viewAll (Model model){
         model.addAttribute("title", "View All Activities");
         model.addAttribute("activities", activityDao.findAll());
+        model.addAttribute("types", ActivityType.values());
+        model.addAttribute("levels", SkillLevel.values());
 
             return "activity/view-all-activities";
         }
