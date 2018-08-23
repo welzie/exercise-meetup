@@ -9,6 +9,7 @@ $(document).ready(function(){
                 url: 'https://haveibeenpwned.com/api/v2/breachedaccount/' + user + '?includeUnverified=true',
                 type: 'GET',
                 dataType: 'json',
+                async: false,
                 statusCode: {
                     200: function(data){
                         var latestBreach = data[0].BreachDate;
@@ -23,7 +24,7 @@ $(document).ready(function(){
                         $("#lastBreach").val("none");
                     },
                 }});
-            $("#register").submit();
-                 }
+                $("#register").submit();
+             }
     });
 })
