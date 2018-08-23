@@ -20,9 +20,9 @@ $(document).ready(function(){
                             }
                         $("#lastBreach").val(latestBreach);
                         },
-                    404: function(){
+                    /*404: function(){
                         $("#lastBreach").val("none");
-                    },
+                    },*/
                 }});
                 $("#register").submit();
              }

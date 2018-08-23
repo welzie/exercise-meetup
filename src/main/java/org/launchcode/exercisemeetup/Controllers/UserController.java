@@ -61,10 +61,14 @@ public class UserController extends AbstractController {
 
         User newUser = new User(form.getUsername(), form.getPassword(), form.getLastBreach());
 
+        if (newUser.getLastBreach() != null) {
+            newUser.setBreachNotify(1);
+        }
+
         userDao.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:activity/add";
+        return "redirect:user/" + newUser.getUsername();
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -98,8 +102,7 @@ public class UserController extends AbstractController {
 
         setUserInSession(request.getSession(), theUser);
 
-        return "redirect:activity/add";
-
+        return "redirect:user/" + theUser.getUsername();
     }
 
     @RequestMapping(value = "logout", method=RequestMethod.POST)
@@ -108,10 +111,8 @@ public class UserController extends AbstractController {
             removeUserFromSession(session);
         }
 
-
         session.removeAttribute("user_id");
         return "redirect:";
-
     }
 
     @RequestMapping(value = "user/{username}", method = RequestMethod.GET)

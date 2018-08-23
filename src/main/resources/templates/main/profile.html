@@ -12,6 +12,10 @@
         <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
     </div>
 
+    <div th:if="${user.breachNotify}" class="hibp">
+        <p th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum. Please click here for more information on the compromise.'"></p>
+    </div>
+
 
     <div>
         <table class="table">

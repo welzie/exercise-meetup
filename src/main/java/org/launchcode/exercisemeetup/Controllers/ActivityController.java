@@ -71,21 +71,14 @@ public class ActivityController extends AbstractController {
             model.addAttribute("levels", SkillLevel.values());
             model.addAttribute("error",futureDate);
 
-
-
-
             return "activity/add-activity";
         }
-
 
         newActivity.setUser(getUserFromSession(httpSession));
 
         activityDao.save(newActivity);
 
         return "redirect:view/" + newActivity.getId();
-
-
-
     }
 
     @RequestMapping(value="view/{activityId}")
@@ -115,8 +108,6 @@ public class ActivityController extends AbstractController {
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
         return "activity/view-activity";
-
-
     }
 
     @RequestMapping(value="results")
@@ -173,15 +164,10 @@ public class ActivityController extends AbstractController {
         else if (level !=null) {
             searchResult =activityDao.findByLevel(level);
         }
+        model.addAttribute("searchResult", searchResult);
 
-
-
-            model.addAttribute("searchResult", searchResult);
-
-            return "activity/search-results";
-
-
-        }
+        return "activity/search-results";
+    }
     @RequestMapping(value = "view-all")
     public String viewAll (Model model){
         model.addAttribute("title", "View All Activities");
@@ -191,8 +177,6 @@ public class ActivityController extends AbstractController {
 
             return "activity/view-all-activities";
         }
-
-
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String displayEditActivity (Model model,@RequestParam int id){
@@ -255,4 +239,3 @@ public class ActivityController extends AbstractController {
     }
 
 }
-

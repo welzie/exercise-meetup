@@ -27,6 +27,8 @@ public class User extends AbstractEntity {
 
     private String lastBreach;
 
+    private int breachNotify;
+
     public User() {
     }
 
@@ -38,6 +40,14 @@ public class User extends AbstractEntity {
 
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    public int getBreachNotify() {
+        return breachNotify;
+    }
+
+    public void setBreachNotify(int breachNotify) {
+        this.breachNotify = breachNotify;
     }
 
     public String getLastBreach() {
