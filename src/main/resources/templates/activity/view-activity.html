@@ -11,13 +11,13 @@
     <div class="col-lg-8 inputform">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title" th:text="${activity.user.username}"></h4>
+                <h4 class="card-title" id="username" th:text="${activity.user.username}" th:data-user="${activity.user.username}"></h4>
                 <p th:text="${activity.type.name}"></p>
                 <p th:text="${activity.level.name}"></p>
-                <form th:unless="${activity.completed}" method="post">
-                    <input type="hidden" th:value="true" name="completed"/>
-                    <input type="submit" th:value="completed" />
-                </form>
+                <div th:unless="${activity.completed}">
+                    <button th:if="${owner}" th:data-completed="${activity.completed}" th:data-activity-id="${activity.id}" id="set-completed">Mark Completed</button>
+                    <p th:unless="${owner}">Pending</p>
+                </div>
                 <p th:if="${activity.completed}">Completed!</p>
             </div>
             <a th:if="${owner}" class="btn" th:href="@{/activity/delete(id=${activity.id})}">delete</a>
@@ -71,14 +71,16 @@
                 <td th:text="${activity.type}"></td>
                 <td th:text="${activity.level}"></td>
                 <td th:text="${activity.user.username}"></td>
-                <td th:if="${activity.completed}">Completed</td>
-                <td th:unless="${activity.completed}">Pending</td>
+                <td th:if="${activity.completed}" id="completed">Completed</td>
+                <td th:unless="${activity.completed}" id="completed">Pending</td>
                 <td><a href="test.html" th:href="@{/activity/edit(id=${activity.id})}">edit</a></td>
             </tr>
         </table>
         <a th:href="@{/activity/add}">Add</a> | <a href="#">Remove</a>
     </div>
     <div th:replace="fragments :: results"></div>
+
+    <script th:src="@{/js/completed.js}"></script>
 </div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
