@@ -1,6 +1,8 @@
 package org.launchcode.exercisemeetup.Controllers;
 
 import org.launchcode.exercisemeetup.Models.User;
+import org.launchcode.exercisemeetup.Models.data.ActivityType;
+import org.launchcode.exercisemeetup.Models.data.SkillLevel;
 import org.launchcode.exercisemeetup.Models.data.UserDao;
 import org.launchcode.exercisemeetup.Models.forms.LoginForm;
 import org.launchcode.exercisemeetup.Models.forms.RegisterForm;
@@ -98,14 +100,17 @@ public class UserController extends AbstractController {
         return "redirect:activity/add";
 
     }
-    
+
     @RequestMapping(value = "logout", method=RequestMethod.POST)
     public String logout(HttpSession session) {
         if(!getUserFromSession(session).equals(null)) {
             removeUserFromSession(session);
         }
 
-        return "redirect:/";
+
+        session.removeAttribute("user_id");
+        return "redirect:";
+
     }
 
     @RequestMapping(value = "user/{username}", method = RequestMethod.GET)
@@ -114,6 +119,10 @@ public class UserController extends AbstractController {
         /* Add edit profile links if user id and session user id match? */
         User user = userDao.findByUsername(username);
         model.addAttribute("user", user);
+        model.addAttribute("types", ActivityType.values());
+        model.addAttribute("levels", SkillLevel.values());
         return "main/profile";
     }
+
+
 }
