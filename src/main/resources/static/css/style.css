@@ -9,6 +9,12 @@
   color: red;
 }
 
+.hibp {
+    padding-top: 20px;
+    border: 1px solid #C51728;
+}
+
+
 .content {
   padding-top: 180px;
   padding-left: 20%;
