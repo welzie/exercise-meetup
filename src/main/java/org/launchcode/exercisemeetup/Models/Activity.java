@@ -55,12 +55,15 @@ public class Activity{
 
     private boolean completed;
 
+    @NotNull(message = "Please specify a location")
+    private String  location;
+
 
     public Activity(){
 
     }
 
-    public Activity(ActivityType type, SkillLevel level,LocalDate date, LocalTime time){
+    public Activity(ActivityType type, SkillLevel level,LocalDate date, LocalTime time, String location){
 
         this.type = type;
         this.level = level;
@@ -127,5 +130,13 @@ public class Activity{
 
     public String getFormattedTime() {
         return Activity.TIME_SIMPLE_DATE_FORMAT.format(time);
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

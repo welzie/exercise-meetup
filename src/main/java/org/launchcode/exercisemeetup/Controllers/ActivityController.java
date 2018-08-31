@@ -214,7 +214,9 @@ public class ActivityController extends AbstractController {
                                       @RequestParam(value = "type", required = false) ActivityType type,
                                       @RequestParam(value = "date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
                                       @RequestParam(value = "level", required = false) SkillLevel level,
-                                      @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time){
+                                      @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time
+            ,
+                                      @RequestParam(value = "location", required = false) String location){
         Activity activity = activityDao.findById(id);
 
 
@@ -234,6 +236,10 @@ public class ActivityController extends AbstractController {
                 activity.setTime(time);
                 activityDao.save(activity);
             }
+        if (location != null) {
+            activity.setLocation(location);
+            activityDao.save(activity);
+        }
 
             return "main/profile";
         }

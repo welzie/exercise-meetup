@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class="content" layout:fragment="content">
+
     <div>
         <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
     </div>
@@ -32,6 +33,7 @@
                 <td th:text="${activity.type.name}"></td>
                 <td th:text="${activity.level.name}"></td>
                 <td th:text="${activity.user.username}"></td>
+                <td th:text="${activity.location}"></td>
                 <td th:if="${activity.completed}">Completed</td>
                 <td th:unless="${activity.completed}">Pending</td>
                 <td><a href="test.html" th:href="@{/activity/edit(id=${activity.id})}">edit</a>
@@ -69,6 +71,78 @@
                         <input type="submit" value="Search for Activities!"/>
                     </form>
     </div>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+    <h3>Activity Locations</h3>
+    <!--The div element for the map -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <div id="map"></div>
+    <script >
+
+
+    function initMap()
+
+     var options = {zoom:8,
+        center:{lat:37.9643,lng:-91.8318}
+      }
+
+    var map = new google.maps.Map(document.getElementById('map'), options);
+
+
+
+    </script>
+    <script th:inline="javascript">
+           /*<![CDATA[*/
+    //get user activities in var
+    var activities = /*[[${activities}]]*/ '';
+    //loop through user activities
+     for(var i=0; i < activities.length; i++){
+        if(/*[[${i.location != null}]]*/){
+            axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+          address:/*[[${i.location}]]*/,
+          key:'AIzaSyCWn9Q_P_RnYbfBPHe_cfOQ8J6xMZ1ONiU'
+        }
+      })
+      .then(function(response)
+        var lat = response.data.results[0].geometry.location.lat;
+        var lng = response.data.results[0].geometry.location.lng;
+        // Initialize and add the map
+        <!--function initMap() {-->
+      // The location of Uluru
+      var uluru = {lat: lat, lng: lng};
+      // The map, centered at Uluru
+      <!--var map = new google.maps.Map(-->
+          <!--document.getElementById('map'), options);-->
+      // The marker, positioned at Uluru
+      var marker = new google.maps.Marker({position: uluru, map: map});
+
+        }
+     }
+// Initialize and add the map
+    <!--function initMap() {-->
+  // The location of Uluru
+  <!--var uluru = {lat: -25.344, lng: 131.036};-->
+  // The map, centered at Uluru
+  <!--var map = new google.maps.Map(-->
+      <!--document.getElementById('map'), {zoom: 4, center: uluru});-->
+  // The marker, positioned at Uluru
+  <!--var marker = new google.maps.Marker({position: uluru, map: map});-->
+}
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWn9Q_P_RnYbfBPHe_cfOQ8J6xMZ1ONiU&callback=initMap">
+    </script>
     </div>
 
 <th:block layout:fragment="scripts"></th:block>

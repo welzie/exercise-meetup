@@ -119,8 +119,12 @@ public class UserController extends AbstractController {
         /* Add edit profile links if user id and session user id match? */
         User user = userDao.findByUsername(username);
         model.addAttribute("user", user);
+
         model.addAttribute("types", ActivityType.values());
         model.addAttribute("levels", SkillLevel.values());
+
+        model.addAttribute("activities", user.getActivities());
+
         return "main/profile";
     }
 
