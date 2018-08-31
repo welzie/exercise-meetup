@@ -9,12 +9,18 @@
 <body>
 <div class="content" layout:fragment="content">
     <div>
-        <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
+        <h1 id="greeting" th:data-user="${user.username}" th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
     </div>
 
-    <div th:if="${user.breachNotify}" class="hibp">
-        <p th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum. Please click here for more information on the compromise.'"></p>
-
+    <div th:if="${user.breachNotify}" id="hibp">
+        <p id="breachNotification" th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum. Please click here for more information on the compromise.'"></p>
+        <div class="breachNotificationActions">
+            <button id="hideNotification">Hide</button><span><input type="checkbox" id="hidePermanently">Don't see this notification again.</span>
+        </div>
+<!--        <div th:unless="${activity.completed}">
+            <button th:if="${owner}" th:data-completed="${activity.completed}" th:data-activity-id="${activity.id}" id="set-completed">Mark Completed</button>
+            <p th:unless="${owner}">Pending</p>
+        </div>-->
     </div>
 
 
@@ -73,9 +79,11 @@
                         </div>
                         <input type="submit" value="Search for Activities!"/>
                     </form>
+            </div>
+        </div>
     </div>
-    </div>
-
+    <script th:src="@{/js/hibp.js}"></script>
+</div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
 </html>
