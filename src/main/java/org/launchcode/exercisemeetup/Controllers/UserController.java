@@ -53,7 +53,6 @@ public class UserController extends AbstractController {
 
         User existingUser = userDao.findByUsername(form.getUsername());
 
-
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
             return "main/register";
@@ -63,6 +62,8 @@ public class UserController extends AbstractController {
 
         if (newUser.getLastBreach() != null) {
             newUser.setBreachNotify(1);
+        } else {
+            newUser.setBreachNotify(0);
         }
 
         userDao.save(newUser);

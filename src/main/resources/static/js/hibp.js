@@ -28,7 +28,7 @@ $(document).ready(function() {
     /*user interactions if a breach notification is found */
     $("#hideNotification").click(function() {
         if ($('input[type=checkbox]').prop('checked')) {
-            let breachNotify = null;
+            let breachNotify = 0;
             let user = $("#greeting").attr("data-user");
 
             console.log(hidePermanently);
