@@ -1,5 +1,7 @@
 package org.launchcode.exercisemeetup.Models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.launchcode.exercisemeetup.Models.data.ActivityType;
 import org.launchcode.exercisemeetup.Models.data.SkillLevel;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -96,10 +98,12 @@ public class Activity{
         this.level = level;
     }
 
+
     public LocalDate getDate() {
         return date;
  }
 
+    @JsonIgnore
     public String getFormattedDate() {
         return Activity.SIMPLE_DATE_FORMAT.format(date);
     }
@@ -125,6 +129,7 @@ public class Activity{
         this.completed = completed;
     }
 
+    @JsonIgnore
     public String getFormattedTime() {
         return Activity.TIME_SIMPLE_DATE_FORMAT.format(time);
     }

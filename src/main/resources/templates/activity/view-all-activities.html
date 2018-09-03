@@ -8,31 +8,10 @@
 </head>
 <body>
 <div class="content" layout:fragment="content">
+    <script type="text/javascript" th:src="@{~/js/activities.js}"></script>
     <div class="inputform">
                         <div>
-            <table class="table">
 
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Activity Type</th>
-                    <th>Difficulty</th>
-                    <th>User</th>
-                    <th>Complete</th>
-
-                </tr>
-
-                <tr th:each="activity : ${activities}">
-                    <td th:text="${activity.date}"></td>
-                    <td th:text="${activity.time}"></td>
-                    <td th:text="${activity.type.name}"></td>
-                    <td th:text="${activity.level.name}"></td>
-                    <td th:text="${activity.user.username}"></td>
-                    <td th:if="${activity.completed}">Completed</td>
-                    <td th:unless="${activity.completed}">Pending</td>
-
-                </tr>
-            </table>
                             <div style="padding-top: 20px">
                                 <form th:action="@{/activity/results}"  method="post">
                                     <div class="form-group">
@@ -65,7 +44,7 @@
         </div>
     </div>
 </div>
-
+    </div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
 </html>
