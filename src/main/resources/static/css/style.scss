@@ -1,30 +1,31 @@
-$primary-color : #C51728;
-// $secondary-color
-// $primary-text
+$easy: #1BA513;
+$medium: #FFD700;
+$hard: #C51728;
+$expert: black;
 
-.header{
-    background-image: url('../images/bicycle_background.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
+.header {
+  background-image: url("../images/bicycle_background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
 
-.errors{
-    color: red;
+.errors {
+  color: red;
 }
 
-.inputform{
-    padding-top: 180px;
-    padding-left: 20%;
+.content {
+  padding-top: 180px;
+  padding-left: 20%;
 }
 
-.overlay{
- position: absolute;
- min-height: 100%;
- min-width: 100%;
- left: 0;
- top: 0;
- background: rgba(244, 244, 244, 0.79);
+.overlay {
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(244, 244, 244, 0.79);
 }
 
 .container-fluid {
@@ -32,83 +33,99 @@ $primary-color : #C51728;
 }
 
 body {
-    padding-top: 80px;
-    position: relative;
+  padding-top: 80px;
+  position: relative;
 }
 
-.description{
-    position: absolute;
-    top: 30%;
-    margin: auto;
-    padding: 2em;
-
-}
-.description h1{
- color:$primary-color;
-}
-.description p{
- color:#666;
- font-size: 20px;
- width: 50%;
- line-height: 1.5;
-}
-.description button{
- border:1px  solid $primary-color;
- background:$primary-color;
- color:#fff;
+.description {
+  position: absolute;
+  top: 30%;
+  margin: auto;
+  padding: 2em;
 }
 
-.navbar{
- background:$primary-color;
-}
-.nav-link , .navbar-brand{
- color: #f4f4f4;
- cursor: pointer;
+.description h1 {
+  color: #C51728;
 }
 
-.nav-link:hover{
- background: #f4f4f4;
- color: $primary-color;
-
+.description p {
+  color: #666;
+  font-size: 20px;
+  width: 50%;
+  line-height: 1.5;
 }
 
-.navbar-toggler{
-  background:#fff !important;
+.description button {
+  border: 1px solid #C51728;
+  background: #C51728;
+  color: #fff;
 }
 
-.container .card{
-    background: $primary-color;
-    color: #f4f4f4;
+.navbar {
+  background: #C51728;
 }
 
-.flex-wrapper {
+.nav-link, .navbar-brand {
+  color: #f4f4f4;
+  cursor: pointer;
+}
 
-    .table-head {
-        border-bottom: 2px solid #212529;
-        font-size: bold;        
+.nav-link:hover {
+  background: #f4f4f4;
+  color: #C51728;
+}
+
+.navbar-toggler {
+  background: #fff !important;
+}
+
+.container .card {
+  background: #C51728;
+  color: #f4f4f4;
+}
+
+.EASY {
+  border-bottom: $easy 3px solid;
+  border-left: $easy 30px solid;
+}
+
+.MEDIUM {
+  border-bottom: $medium 3px solid;
+  border-left: $medium 30px solid;
+}
+
+.HARD {
+  border-bottom: $hard 3px solid;
+  border-left: $hard 30px solid;
+}
+
+.EXPERT {
+  border-left: $expert 30px solid;
+  border-bottom: $expert 3px solid;
+}
+
+.activity-item {
+  margin: 10px 0;
+  background-color: white;
+
+  div {
+    padding: 3px;
+
+    p, h1, h2, h3, h4, h5, a {
+      margin: 3px;
     }
-
-    a {
-        text-decoration: none;
-        color: #212529;
-
-        :hover {
-            text-decoration: none;
-            background-color: $primary-color;
-            color: #f4f4f4;
-        }
-    }
-
-    .flex-container {
-        display: flex;
-        color: #212529;
-        transition: background-color 1s ease;
-   
-            span {
-                width: 15%;
-                min-width: 50px;
-                transition: background-color 1s ease;
-            }
-
-    }
+  }
 }
+
+.flex-grid {
+  display: block;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
+
+/*# sourceMappingURL=style.scss.map */
