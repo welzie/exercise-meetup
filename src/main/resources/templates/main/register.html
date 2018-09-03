@@ -8,6 +8,13 @@
 </head>
 <body>
     <div class="content" layout:fragment="content">
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="/js/postrequest.js"></script>
+        <script src="/js/getrequest.js"></script>
+
         <form th:object="${registerForm}" method="post" style="max-width:600px;">
             <div class="form-group">
                 <label th:for="username">Username</label>
@@ -26,6 +33,17 @@
                 <input class="form-control" th:field="*{verifyPassword}" type="password" />
                 <span th:errors="*{verifyPassword}" class="error"></span>
             </div>
+
+            <h3>Upload a Profile Picture</h3>
+            <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                <div class="form-group">
+                    <label class="control-label" for="uploadfile">Upload File:</label>
+                    <input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="uploadfile">
+                </div>
+
+                <button type="submit" class="btn btn-default" id="btnSubmit">Upload</button>
+                <button type="button" class="btn btn-default" id="btnGetFiles">Files</button>
+            </form>
 
             <input type="submit" value="Register" />
         </form>
