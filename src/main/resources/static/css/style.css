@@ -85,28 +85,46 @@ body {
   color: #f4f4f4;
 }
 
-.flex-wrapper .table-head {
-  border-bottom: 2px solid #212529;
-  font-size: bold;
+.EASY {
+  border-bottom: #1BA513 3px solid;
+  border-left: #1BA513 30px solid;
 }
-.flex-wrapper a {
-  text-decoration: none;
-  color: #212529;
+
+.MEDIUM {
+  border-bottom: #FFD700 3px solid;
+  border-left: #FFD700 30px solid;
 }
-.flex-wrapper a :hover {
-  text-decoration: none;
-  background-color: #C51728;
-  color: #f4f4f4;
+
+.HARD {
+  border-bottom: #C51728 3px solid;
+  border-left: #C51728 30px solid;
 }
-.flex-wrapper .flex-container {
+
+.EXPERT {
+  border-left: black 30px solid;
+  border-bottom: black 3px solid;
+}
+
+.activity-item {
+  margin: 10px 0;
+  background-color: white;
+}
+.activity-item div {
+  padding: 3px;
+}
+.activity-item div p, .activity-item div h1, .activity-item div h2, .activity-item div h3, .activity-item div h4, .activity-item div h5, .activity-item div a {
+  margin: 3px;
+}
+
+.flex-grid {
+  display: block;
+}
+.flex-grid div {
   display: flex;
-  color: #212529;
-  transition: background-color 1s ease;
+  justify-content: space-between;
 }
-.flex-wrapper .flex-container span {
-  width: 15%;
-  min-width: 50px;
-  transition: background-color 1s ease;
-}
+
+/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.scss.map */
 
 /*# sourceMappingURL=style.css.map */

@@ -1,5 +1,6 @@
 package org.launchcode.exercisemeetup.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //structure of this register/login experience taken from Chris Bay's demo: https://github.com/LaunchCodeEducation/spring-filter-based-auth
@@ -22,6 +23,7 @@ public class User extends AbstractEntity {
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @OneToMany
+    @JsonIgnore
     @JoinColumn(name = "user_uid")
     private List<Activity> activities = new ArrayList<>();
 
@@ -66,6 +68,7 @@ public class User extends AbstractEntity {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPwHash() {
         return pwHash;
     }
