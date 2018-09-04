@@ -9,11 +9,12 @@
   color: red;
 }
 
-.hibp {
-    padding-top: 20px;
-    border: 1px solid #C51728;
+.notification {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    vertical-align: middle;
 }
-
 
 .content {
   padding-top: 180px;

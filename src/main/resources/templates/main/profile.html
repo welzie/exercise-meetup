@@ -11,14 +11,16 @@
     <div>
         <h1 id="greeting" th:data-user="${user.username}" th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
     </div>
-
-    <div th:if="${user.breachNotify} == 1" id="hibp">
-        <p id="breachNotification" th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum. Please click here for more information on the compromise.'"></p>
+    <div class="alert alert-warning" th:if="${user.breachNotify} == 1" id="hibp">
+        <p id="breachNotification" th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum.'"></p>
         <div class="breachNotificationActions">
-            <button id="hideNotification">Hide</button><span><input type="checkbox" id="hidePermanently">Don't see this notification again.</span>
+        <p>For more information on your specific breach, please click <a href="https://haveibeenpwned.com">here</a> and enter your username.</p>
+        <div class="notification">
+            <div><button id="hideNotification" class="btn btn-primary">Hide</button></div>
+            <div><input type="checkbox" id="hidePermanently">Don't see me again.</div>
+        </div>
         </div>
     </div>
-
 
     <div>
         <table class="table">
