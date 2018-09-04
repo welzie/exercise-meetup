@@ -1,5 +1,6 @@
 package org.launchcode.exercisemeetup.Controllers;
 
+import org.launchcode.exercisemeetup.Models.Activity;
 import org.launchcode.exercisemeetup.Models.User;
 import org.launchcode.exercisemeetup.Models.data.ActivityType;
 import org.launchcode.exercisemeetup.Models.data.SkillLevel;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -118,15 +122,19 @@ public class UserController extends AbstractController {
 
         /* Add edit profile links if user id and session user id match? */
         User user = userDao.findByUsername(username);
+        int i = 0;
+        ArrayList<String> locations = user.getUserActivityLocations(user);
         model.addAttribute("user", user);
 
         model.addAttribute("types", ActivityType.values());
         model.addAttribute("levels", SkillLevel.values());
 
-        model.addAttribute("activities", user.getActivities());
+        model.addAttribute("locations", locations);
+        model.addAttribute("i", i);
 
         return "main/profile";
     }
+
 
 
 }

@@ -57,4 +57,18 @@ public class User extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
+    public ArrayList<String> getUserActivityLocations(User user){
+        ArrayList<String> locations = new ArrayList<String>();
+        List<Activity> activities = user.getActivities();
+        for( int i = 0; i < activities.size(); i++){
+            Activity idivActivity = activities.get(i);
+            String indivLocation = idivActivity.getLocation();
+            locations.add(indivLocation);
+        }
+        return locations;
+
+
+    }
+
+
 }

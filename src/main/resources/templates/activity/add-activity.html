@@ -21,7 +21,7 @@
 
 
 
-            <span th:errors="*{activity}" class="error"></span>
+
 
             <input th:type="hidden" th:field="${activity.id}"/>
         </div>
@@ -59,11 +59,11 @@
             <span th:errors="*{time}" class="error"></span>
         </div>
         <div class="form-group">
-            <label th:for="location">Location:
+            <label th:for="location">Address:
                 <input type="text" th:feild="${location}" name = "location">
 
             </label>
-            <span th:errors="*{location}" class="error"></span>
+            <span th:if="${location} and ${location.isEmpty()}" class="error">Please specify a location</span>
         </div>
         <input type="submit" value="Add Activity" />
     </form>

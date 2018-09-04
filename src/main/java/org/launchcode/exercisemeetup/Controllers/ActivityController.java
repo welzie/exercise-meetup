@@ -59,17 +59,19 @@ public class ActivityController extends AbstractController {
 
         Optional <LocalDate> date = Optional.ofNullable(newActivity.getDate());
         Boolean futureDate;
+        String location = newActivity.getLocation();
         if (date.isPresent()) {
             futureDate = newActivity.getDate().isBefore(LocalDate.now());
 
 
         }else futureDate = false;
 
-        if (errors.hasErrors() || futureDate ==true) {
+        if (errors.hasErrors() || futureDate ==true || location.isEmpty()) {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
             model.addAttribute("levels", SkillLevel.values());
             model.addAttribute("error",futureDate);
+            model.addAttribute("location", location);
 
 
 
