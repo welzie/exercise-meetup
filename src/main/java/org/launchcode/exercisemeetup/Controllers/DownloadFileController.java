@@ -1,6 +1,5 @@
 package org.launchcode.exercisemeetup.Controllers;
 
-
 import com.fasterxml.jackson.annotation.JsonView;
 import org.launchcode.exercisemeetup.Models.data.FileRepository;
 import org.launchcode.exercisemeetup.Models.data.View;
@@ -47,5 +46,3 @@ public class DownloadFileController {
         return ResponseEntity.status(404).body(null);
     }
 }
-
-
