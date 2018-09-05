@@ -9,13 +9,6 @@
   color: red;
 }
 
-.notification {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    vertical-align: middle;
-}
-
 .content {
   padding-top: 180px;
   padding-left: 20%;
