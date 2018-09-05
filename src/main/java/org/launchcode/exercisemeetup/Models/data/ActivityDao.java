@@ -2,6 +2,7 @@ package org.launchcode.exercisemeetup.Models.data;
 
 import org.launchcode.exercisemeetup.Models.Activity;
 import org.launchcode.exercisemeetup.Models.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,9 @@ import java.util.List;
 @Repository
 @Transactional
 public interface ActivityDao extends CrudRepository<Activity, Integer> {
+
+    /*@Query(value = "SELECT a FROM Activity a ORDERED BY a.date ASC", nativeQuery = true)*/
+    public ArrayList<Activity> findByCompletedOrderByDateAsc(boolean bool);
 
     public List<Activity> findByUser(User user);
 

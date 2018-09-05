@@ -9,9 +9,18 @@
 <body>
 <div class="content" layout:fragment="content">
     <div>
-        <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
+        <h1 id="greeting" th:data-user="${user.username}" th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
     </div>
-
+    <div class="alert alert-warning" th:if="${user.breachNotify} == 1" id="hibp">
+        <p id="breachNotification" th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum.'"></p>
+        <div class="breachNotificationActions">
+        <p>For more information on your specific breach, please click <a href="https://haveibeenpwned.com">here</a> and enter your username.</p>
+        <div class="notification">
+            <div><button id="hideNotification" class="btn btn-primary">Hide</button></div>
+            <div><input type="checkbox" id="hidePermanently">Don't see me again.</div>
+        </div>
+        </div>
+    </div>
 
     <div>
         <table class="table">
@@ -68,9 +77,11 @@
                         </div>
                         <input type="submit" value="Search for Activities!"/>
                     </form>
+            </div>
+        </div>
     </div>
-    </div>
-
+    <script th:src="@{/js/hibp.js}"></script>
+</div>
 <th:block layout:fragment="scripts"></th:block>
 </body>
 </html>
