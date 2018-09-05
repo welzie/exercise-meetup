@@ -3,13 +3,6 @@ $medium: #FFD700;
 $hard: #C51728;
 $expert: black;
 
-.header {
-  background-image: url("../images/bicycle_background.jpg");
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-}
-
 .errors {
   color: red;
 }
@@ -33,8 +26,13 @@ $expert: black;
 }
 
 body {
-  padding-top: 80px;
+  padding-top: 200px;
   position: relative;
+  background-image: url("../images/bicycle_background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 .description {
