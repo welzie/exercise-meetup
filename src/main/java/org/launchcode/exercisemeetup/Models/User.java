@@ -27,16 +27,37 @@ public class User extends AbstractEntity {
     @JoinColumn(name = "user_uid")
     private List<Activity> activities = new ArrayList<>();
 
+    private String lastBreach;
+
+    private int breachNotify;
+
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String lastBreach) {
         this.username = username;
         this.pwHash = hashPassword(password);
+        this.lastBreach = lastBreach;
     }
 
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    public int getBreachNotify() {
+        return breachNotify;
+    }
+
+    public void setBreachNotify(int breachNotify) {
+        this.breachNotify = breachNotify;
+    }
+
+    public String getLastBreach() {
+        return lastBreach;
+    }
+
+    public void setLastBreach(String lastBreach) {
+        this.lastBreach = lastBreach;
     }
 
     public String getUsername() {
