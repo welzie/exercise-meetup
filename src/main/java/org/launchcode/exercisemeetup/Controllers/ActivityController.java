@@ -105,11 +105,11 @@ public class ActivityController extends AbstractController {
         model.addAttribute("title", "New Activity");
         model.addAttribute("types", ActivityType.values());
         model.addAttribute("levels", SkillLevel.values());
-        model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
+        model.addAttribute("activities", activityDao.findByUserOrderByDateAsc(getUserFromSession(httpSession)));
 
         return "activity/view-activity";
     }
-
+/*
     @RequestMapping(value="results")
     public String search(Model model,@RequestParam(value = "search_date", required = false)
                              @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate search_date,
@@ -168,6 +168,7 @@ public class ActivityController extends AbstractController {
 
         return "activity/search-results";
     }
+*/
     @RequestMapping(value = "view-all")
     public String viewAll (Model model){
         model.addAttribute("title", "View All Activities");
