@@ -13,7 +13,7 @@ public class FileModel {
     @GeneratedValue
     @Column(name = "id")
     @JsonView(View.FileInfo.class)
-    private Long id;
+    private int id;
 
     @Column(name = "name")
     @JsonView(View.FileInfo.class)
@@ -45,11 +45,11 @@ public class FileModel {
         this.user = user;
     }
 
-    public Long getId(){
+    public int getId(){
         return this.id;
     }
 
-    public void setId(Long id){
+    public void setId(int id){
         this.id = id;
     }
 

@@ -33,7 +33,7 @@ public class DownloadFileController {
      * Download Files
      */
     @GetMapping("/api/file/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
+    public ResponseEntity<byte[]> getFile(@PathVariable int id) {
         Optional<FileModel> fileOptional = fileRepository.findById(id);
 
         if(fileOptional.isPresent()) {

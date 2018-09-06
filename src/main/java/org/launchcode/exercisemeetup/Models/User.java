@@ -54,6 +54,10 @@ public class User extends AbstractEntity {
         return pic;
     }
 
+    public void setPic(byte[] pic) {
+        this.pic = pic;
+    }
+
     public int getBreachNotify() {
         return breachNotify;
     }

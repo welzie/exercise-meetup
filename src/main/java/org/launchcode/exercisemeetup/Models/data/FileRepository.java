@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-public interface FileRepository extends JpaRepository<FileModel, Long> {
+public interface FileRepository extends JpaRepository<FileModel, Integer> {
     public FileModel findByName(String name);
 
     public ArrayList<FileModel> findByUser(User user);
