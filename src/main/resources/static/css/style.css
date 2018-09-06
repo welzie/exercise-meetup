@@ -97,14 +97,20 @@ body {
   border-bottom: black 3px solid;
 }
 
-.activity-item {
+.activity-container {
+  min-height: 60vh;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-top: 5px #333 solid;
+}
+.activity-container .activity-item {
   margin: 10px 0;
   background-color: white;
 }
-.activity-item div {
+.activity-container .activity-item div {
   padding: 3px;
 }
-.activity-item div p, .activity-item div h1, .activity-item div h2, .activity-item div h3, .activity-item div h4, .activity-item div h5, .activity-item div a {
+.activity-container .activity-item div p, .activity-container .activity-item div h1, .activity-container .activity-item div h2, .activity-container .activity-item div h3, .activity-container .activity-item div h4, .activity-container .activity-item div h5, .activity-container .activity-item div a {
   margin: 3px;
 }
 
