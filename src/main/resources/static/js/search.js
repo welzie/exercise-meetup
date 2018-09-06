@@ -48,6 +48,10 @@ $(document).ready(function() {
             }
 
             $(".content").append("<div class='activity-container'><div>");
+            if(!jsonResponse[0]) {
+                $(".activity-container").append("<h3>No Results Found</h3>");
+            }
+
             for(let i = 0; i < jsonResponse.length; i++) {
                 console.log(jsonResponse[i]);
                 let activity = jsonResponse[i];
