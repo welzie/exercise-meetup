@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 public class UploadFileController {
 
     @Autowired
     FileRepository fileRepository;
+    @Autowired
+    private HttpSession httpSession;
 
     /*
      * MultipartFile Upload
@@ -23,6 +27,7 @@ public class UploadFileController {
         try {
             // save file to SQL
             FileModel filemode = new FileModel(file.getOriginalFilename(), file.getContentType(), file.getBytes());
+            filemode.setUser(getUserFromSession(httpSession));
             fileRepository.save(filemode);
             return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
         } catch (	Exception e) {

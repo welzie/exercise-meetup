@@ -1,6 +1,7 @@
 package org.launchcode.exercisemeetup.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.launchcode.exercisemeetup.Models.forms.FileModel;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //structure of this register/login experience taken from Chris Bay's demo: https://github.com/LaunchCodeEducation/spring-filter-based-auth
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,10 @@ public class User extends AbstractEntity {
     @JoinColumn(name = "user_uid")
     private List<Activity> activities = new ArrayList<>();
 
+    @OneToOne(targetEntity = FileModel.class)
+    @JoinColumn(name = "pic")
+    private byte[] pic;
+
     private String lastBreach;
 
     private int breachNotify;
@@ -42,6 +48,10 @@ public class User extends AbstractEntity {
 
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    public byte[] getPic() {
+        return pic;
     }
 
     public int getBreachNotify() {

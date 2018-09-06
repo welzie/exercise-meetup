@@ -1,6 +1,7 @@
 package org.launchcode.exercisemeetup.Models.forms;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.launchcode.exercisemeetup.Models.User;
 import org.launchcode.exercisemeetup.Models.data.View;
 
 import javax.persistence.*;
@@ -25,12 +26,23 @@ public class FileModel {
     @Column(name="pic")
     private byte[] pic;
 
+    @OneToOne
+    private User user;
+
     public FileModel(){}
 
     public FileModel(String name, String mimetype, byte[] pic){
         this.name = name;
         this.mimetype = mimetype;
         this.pic = pic;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId(){
