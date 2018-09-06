@@ -169,6 +169,8 @@ public class RestController extends AbstractController {
         }
         else if (level !=null) {
             searchResult =activityDao.findByLevelAndCompletedOrderByDateAsc(level, isCompleted);
+        } else {
+            searchResult = activityDao.findByCompletedOrderByDateAsc(isCompleted);
         }
 
         jsonInString = mapper.writeValueAsString(searchResult);

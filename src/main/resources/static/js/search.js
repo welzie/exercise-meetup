@@ -1,16 +1,56 @@
 $(document).ready(function() {
 
-    let qeuryHolder = '';
+    function search() {
     /** add click event in html
      *   
      *  name searchActivities()
      * 
     /** build query holder with conditionals */
+    let completed = false;
+    let incompletedActivities = $("#future")[0].checked;
+    let completedActivities = $("#completed")[0].checked;
+    if (incompletedActivities && completedActivities) {
+        completed = "both";
+    } else if(completedActivities) {
+        completed = true;
+    }
 
-    fetch('http://localhost:8080/rest/search?completed=both')
+    let qeuryHolder = "";
+    let level = $("#level").val();
+    let type = $("#type").val();
+    let time = $("#time").val();
+    let date = $("#date").val();
+
+    let counter = 0;
+    if(level != "") { 
+        qeuryHolder += "level=" + level
+        counter++;
+    }
+    if(type != "") { 
+        counter == 0 ? qeuryHolder += "type=" + type : qeuryHolder += "&type=" + type;
+        counter++;
+    }
+    if(time != "") { 
+        counter == 0 ? qeuryHolder += "time=" + time : qeuryHolder += "&time" + time;
+        counter++;
+    }
+    if(date != "") { 
+        counter == 0 ? qeuryHolder += "search_date=" + date : qeuryHolder += "&date" + date;
+        counter++;
+    }
+    if(completed != "false") { 
+        counter == 0 ? qeuryHolder += "completed=" + completed : qeuryHolder += "&completed" + completed;
+    }
+
+    fetch('http://localhost:8080/rest/search?' + qeuryHolder)
     .then((response) => {
         return response.json();
     }).then((jsonResponse) => {
+
+        if($(".activity-container")) {
+            $(".activity-container").remove();
+        }
+
         $(".content").append("<div class='activity-container'><div>");
         for(let i = 0; i < jsonResponse.length; i++) {
             console.log(jsonResponse[i]);
@@ -42,5 +82,30 @@ $(document).ready(function() {
             console.log(activityStructure);
             $(".activity-container").append(activityStructure);
         }
+    })
+    }
+
+    $("#type").change(() => {
+        search();
+    })
+
+    $("#level").change(() => {
+        search();
+    })
+
+    $("#time").change(() => {
+        search();
+    })
+
+    $("#date").change(() => {
+        search();
+    })
+
+    $("#future").change(() => {
+        search();
+    })
+
+    $("#completed").change(() => {
+        search();
     })
 })
