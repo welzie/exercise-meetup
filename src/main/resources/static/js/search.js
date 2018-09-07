@@ -27,15 +27,15 @@ $(document).ready(function() {
             counter++;
         }
         if(time != "") { 
-            counter == 0 ? qeuryHolder += "time=" + time : qeuryHolder += "&time" + time;
+            counter == 0 ? qeuryHolder += "time=" + time : qeuryHolder += "&time=" + time;
             counter++;
         }
         if(date != "") { 
-            counter == 0 ? qeuryHolder += "search_date=" + date : qeuryHolder += "&date" + date;
+            counter == 0 ? qeuryHolder += "search_date=" + date : qeuryHolder += "&search_date=" + date;
             counter++;
         }
         if(completed != "false") { 
-            counter == 0 ? qeuryHolder += "completed=" + completed : qeuryHolder += "&completed" + completed;
+            counter == 0 ? qeuryHolder += "completed=" + completed : qeuryHolder += "&completed=" + completed;
         }
 
         fetch('http://localhost:8080/rest/search?' + qeuryHolder)
