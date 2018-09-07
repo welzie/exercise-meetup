@@ -8,6 +8,7 @@ import org.launchcode.exercisemeetup.Models.data.UserDao;
 import org.launchcode.exercisemeetup.Models.forms.LoginForm;
 import org.launchcode.exercisemeetup.Models.forms.RegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,6 +30,8 @@ import java.util.Optional;
 @RequestMapping("")
 public class UserController extends AbstractController {
 
+    @Value("${google.maps.api.key}")
+    private String apiKey;
 
     @Autowired
     private UserDao userDao;
@@ -57,17 +60,23 @@ public class UserController extends AbstractController {
 
         User existingUser = userDao.findByUsername(form.getUsername());
 
-
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
             return "main/register";
         }
 
-        User newUser = new User(form.getUsername(), form.getPassword());
+        User newUser = new User(form.getUsername(), form.getPassword(), form.getLastBreach());
+
+        if (newUser.getLastBreach() != null) {
+            newUser.setBreachNotify(1);
+        } else {
+            newUser.setBreachNotify(0);
+        }
+
         userDao.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:activity/add";
+        return "redirect:user/" + newUser.getUsername();
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -101,8 +110,7 @@ public class UserController extends AbstractController {
 
         setUserInSession(request.getSession(), theUser);
 
-        return "redirect:activity/add";
-
+        return "redirect:user/" + theUser.getUsername();
     }
 
     @RequestMapping(value = "logout", method=RequestMethod.POST)
@@ -111,15 +119,13 @@ public class UserController extends AbstractController {
             removeUserFromSession(session);
         }
 
-
         session.removeAttribute("user_id");
         return "redirect:";
-
     }
 
     @RequestMapping(value = "user/{username}", method = RequestMethod.GET)
     public String profile(@PathVariable String username, Model model) {
-
+        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&callback=initMap";
         /* Add edit profile links if user id and session user id match? */
         User user = userDao.findByUsername(username);
 
@@ -130,12 +136,14 @@ public class UserController extends AbstractController {
         model.addAttribute("levels", SkillLevel.values());
 
         model.addAttribute("locations", locations);
+        model.addAttribute("apiKey", this.apiKey);
+        model.addAttribute("src", src);
+
+
 
 
 
         return "main/profile";
     }
-
-
 
 }

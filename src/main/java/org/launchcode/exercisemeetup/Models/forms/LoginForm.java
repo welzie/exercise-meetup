@@ -21,7 +21,6 @@ public class LoginForm {
 
     public void setUsername(String username) {
         this.username = username;
-
     }
 
     public String getPassword(){

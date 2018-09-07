@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="content" layout:fragment="content">
-        <form th:object="${registerForm}" method="post" style="max-width:600px;">
+        <form th:object="${registerForm}" method="post" style="max-width:600px;" id="register">
             <div class="form-group">
                 <label th:for="username">Username</label>
-                <input class="form-control" th:field="*{username}" />
+                <input class="form-control" th:field="*{username}" id="user" />
                 <span th:errors="*{username}" class="error"></span>
             </div>
 
@@ -27,8 +27,15 @@
                 <span th:errors="*{verifyPassword}" class="error"></span>
             </div>
 
-            <input type="submit" value="Register" />
+            <div class="form-group">
+                <label th:for="lastBreach"></label>
+                <input id="lastBreach" class="form-control" th:field="*{lastBreach}" type="hidden" />
+            </div>
+
+            <button id="submitRegister">Register</button>
+
         </form>
+        <script th:src="@{/js/hibp.js}"></script>
     </div>
     <th:block layout:fragment="scripts"></th:block>
 </body>

@@ -68,16 +68,19 @@
                 <th>Activity Type</th>
                 <th>Difficulty</th>
                 <th>User</th>
+                <th>Status</th>
             </tr>
-                <tr th:each="activity: ${searchResult}">
+            <tr th:each="activity: ${searchResult}">
 
-                    <td th:text="${activity.date}"></td>
-                    <td th:text="${activity.time}"> </td>
-                    <td th:text="${activity.type}"></td>
-                    <td th:text="${activity.level}"></td>
-                    <td th:text="${activity.user.username}"></td>
+                <td th:text="${activity.date}"></td>
+                <td th:text="${activity.time}"> </td>
+                <td th:text="${activity.type}"></td>
+                <td th:text="${activity.level}"></td>
+                <td th:text="${activity.user.username}"></td>
+                <td th:if="${activity.completed} == true">Completed</td>
+                <td th:if="${activity.completed} == false">Pending</td>
 
-                </tr>
+            </tr>
 
         </table>
     </div>

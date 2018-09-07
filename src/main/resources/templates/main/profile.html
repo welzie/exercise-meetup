@@ -11,9 +11,18 @@
 <div class="content" layout:fragment="content">
 
     <div>
-        <h1 th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
+        <h1 id="greeting" th:data-user="${user.username}" th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
     </div>
-
+    <div class="alert alert-warning" th:if="${user.breachNotify} == 1" id="hibp">
+        <p id="breachNotification" th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum.'"></p>
+        <div class="breachNotificationActions">
+        <p>For more information on your specific breach, please click <a href="https://haveibeenpwned.com">here</a> and enter your username.</p>
+        <div class="notification">
+            <div><button id="hideNotification" class="btn btn-primary">Hide</button></div>
+            <div><input type="checkbox" id="hidePermanently">Don't see me again.</div>
+        </div>
+        </div>
+    </div>
 
     <div>
         <table class="table">
@@ -73,7 +82,10 @@
                         </div>
                         <input type="submit" value="Search for Activities!"/>
                     </form>
-    </div>
+
+
+
+
     <style>
        /* Set the size of the div element that contains the map */
       #map {
@@ -83,9 +95,20 @@
     </style>
     <h3>Activity Locations</h3>
     <!--The div element for the map -->
+    <div id="directions-form "><label>Enter starting location:
+    <input type="text" id="start-location"></label>
+
+    </div>
 
     <div id="map"></div>
+
     <script  th:inline="javascript">
+     /*<![CDATA[*/
+
+     var address;
+     var lat;
+     var lng;
+
 
 
        //init map
@@ -93,30 +116,34 @@
        var options = {
         zoom:8,
         center:{lat:38.294958,lng:-92.492359}
-      }
+        }
         // get map element
     var map = new google.maps.Map(document.getElementById('map'), options);
-       function addMarker(coords){
+        function addMarker(coords){
         var marker = new google.maps.Marker({
           position:coords,
           map:map,
 
         });
+
         }
 
 
 
 
-               /*<![CDATA[*/
+
+
     //list of locations passed from controller to view using thymeleaf
 
 
 
-
+     /*<![CDATA[*/
 
 
     var locations = [];
-    var apiKey = ""
+    var apiKey = /*[[${apiKey}]]*/;
+
+
 
     /*[# th:each="n : ${locations}"]*/
 
@@ -127,16 +154,14 @@
 
     //loop through user locations
     for(var i = 0; i < locations.length; i++){
+        address = locations[i]
 
 
+     axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+     params:{
 
-
-
-  axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
-        params:{
-
-         address:locations[i],
-          key:'AIzaSyC0_mpWB_nOm_gsjWwbgD_2EXYsnYTD6Jg'
+      address:locations[i],
+      key:apiKey
         }
       })
 
@@ -144,15 +169,27 @@
       //using response from api to add markers to map
       .then(function(response){
         console.log(response)
-        var lat = response.data.results[0].geometry.location.lat;
-        var lng = response.data.results[0].geometry.location.lng;
+         lat = response.data.results[0].geometry.location.lat;
+         lng = response.data.results[0].geometry.location.lng;
+         addMarker({lat:lat,lng:lng});
+       })
+       }
+       }
 
 
 
-        addMarker({lat:lat,lng:lng});
-     })
-     }
-     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -161,67 +198,19 @@
 
 
 </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0_mpWB_nOm_gsjWwbgD_2EXYsnYTD6Jg&callback=initMap">
+        <script  async defer
+                th:src= ${src} >
+
+
 
         </script>
-        <!--<script>-->
 
-
-
-
-    <!--</script>-->
-
-    <!--<script th:inline="javascript">-->
-
-
-           <!--/*<![CDATA[*/-->
-    <!--//list of locations passed from controller to view using thymeleaf-->
-    <!--var locations = [[${locations}]];-->
-    <!--// .length not working on variable-->
-
-    <!--var size = locations.length;-->
-    <!--//loop through user locations .length and .size() not working-->
-
-    <!--for(var i = 0; i < [[${locations.size()}]]; i++){-->
-        <!--console.log([[${locations[0]}]]);-->
-        <!--//make call to api using location-->
-
-
-
-  <!--axios.get('https://maps.googleapis.com/maps/api/geocode/json',{-->
-        <!--params:{-->
-
-         <!--address:[[${locations[0]}]],-->
-          <!--key:'AIzaSyCWn9Q_P_RnYbfBPHe_cfOQ8J6xMZ1ONiU'-->
-        <!--}-->
-      <!--})-->
-
-
-      <!--//using response from api to add markers to map-->
-      <!--.then(function(response){-->
-        <!--console.log(response)-->
-        <!--var lat = response.data.results[0].geometry.location.lat;-->
-        <!--var lng = response.data.results[0].geometry.location.lng;-->
-
-        <!--var marker = new google.maps.Marker({position: {lat:lat, lng:lng}, map: map});-->
-            <!--})-->
-
-     <!--}-->
-     	<!--/*]]>*/-->
-
-
-
-
-
-    <!--</script>-->
-    <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
 
     </div>
+
+
+    <script th:src="@{/js/hibp.js}"></script>
+</div>
 
 <th:block layout:fragment="scripts"></th:block>
 </div>

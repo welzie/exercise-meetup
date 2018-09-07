@@ -7,6 +7,7 @@ import org.launchcode.exercisemeetup.Models.data.ActivityDao;
 import org.launchcode.exercisemeetup.Models.data.ActivityType;
 import org.launchcode.exercisemeetup.Models.data.SkillLevel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,9 @@ import java.util.Optional;
 @RequestMapping("activity")
 public class ActivityController extends AbstractController {
 
+    @Value("${google.maps.api.key}")
+    private String apiKey;
+
     @RequestMapping(value = "")
     public String index(Model model) {
         Iterable<Activity> activities = activityDao.findAll();
@@ -41,6 +45,9 @@ public class ActivityController extends AbstractController {
     @RequestMapping(value="add", method = RequestMethod.GET)
     public String displayAddActivity(Model model, HttpSession httpSession) {
 
+        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&libraries=places&callback=initMap";
+
+
         if (getUserFromSession(httpSession)==null) {
             return "redirect:/register";
         } else {
@@ -49,6 +56,10 @@ public class ActivityController extends AbstractController {
             model.addAttribute("types", ActivityType.values());
             model.addAttribute("levels", SkillLevel.values());
             model.addAttribute(new Activity());
+            model.addAttribute("apiKey", this.apiKey);
+            model.addAttribute("src", src);
+
+
 
             return "activity/add-activity";
         }
@@ -56,6 +67,7 @@ public class ActivityController extends AbstractController {
 
     @RequestMapping(value="add", method= RequestMethod.POST)
     public String processAddActivity(@ModelAttribute @Valid Activity newActivity, Errors errors,  Model model, HttpSession httpSession) {
+        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&libraries=places&callback=initMap";
 
         Optional <LocalDate> date = Optional.ofNullable(newActivity.getDate());
         Boolean futureDate;
@@ -72,22 +84,19 @@ public class ActivityController extends AbstractController {
             model.addAttribute("levels", SkillLevel.values());
             model.addAttribute("error",futureDate);
             model.addAttribute("location", location);
-
+            model.addAttribute("apiKey", this.apiKey);
+            model.addAttribute("src", src);
 
 
 
             return "activity/add-activity";
         }
 
-
         newActivity.setUser(getUserFromSession(httpSession));
 
         activityDao.save(newActivity);
 
         return "redirect:view/" + newActivity.getId();
-
-
-
     }
 
     @RequestMapping(value="view/{activityId}")
@@ -117,8 +126,6 @@ public class ActivityController extends AbstractController {
         model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
 
         return "activity/view-activity";
-
-
     }
 
     @RequestMapping(value="results")
@@ -175,15 +182,10 @@ public class ActivityController extends AbstractController {
         else if (level !=null) {
             searchResult =activityDao.findByLevel(level);
         }
+        model.addAttribute("searchResult", searchResult);
 
-
-
-            model.addAttribute("searchResult", searchResult);
-
-            return "activity/search-results";
-
-
-        }
+        return "activity/search-results";
+    }
     @RequestMapping(value = "view-all")
     public String viewAll (Model model){
         model.addAttribute("title", "View All Activities");
@@ -194,8 +196,6 @@ public class ActivityController extends AbstractController {
             return "activity/view-all-activities";
         }
 
-
-
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String displayEditActivity (Model model,@RequestParam int id){
 
@@ -205,27 +205,28 @@ public class ActivityController extends AbstractController {
         model.addAttribute("types", ActivityType.values());
         model.addAttribute("levels", SkillLevel.values());
 
-
-
-
         return "activity/edit";
-        }
+    }
+
     @RequestMapping(value="edit", method = RequestMethod.POST)
     public String ProcessEditActivity(Model model,
                                       @RequestParam int id,
                                       @RequestParam(value = "type", required = false) ActivityType type,
-                                      @RequestParam(value = "date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
+                                      @RequestParam(value = "date", required = false)@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
                                       @RequestParam(value = "level", required = false) SkillLevel level,
-                                      @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time
-            ,
-                                      @RequestParam(value = "location", required = false) String location){
+                                      @RequestParam(value = "location", required = false) String location,
+                                      @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time){
+
+
+
+
+
         Activity activity = activityDao.findById(id);
 
+        activity.setType(type);
+        activityDao.save(activity);
 
-            activity.setType(type);
-            activityDao.save(activity);
-
-            if (date != null) {
+            if(date != null){
                 activity.setDate(date);
                 activityDao.save(activity);
 
@@ -265,4 +266,3 @@ public class ActivityController extends AbstractController {
     }
 
 }
-
