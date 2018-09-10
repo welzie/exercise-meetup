@@ -29,6 +29,7 @@ function doAjax(user) {
             cache: false,
             success: (data) => {
                 $("#listFiles").text(data);
+                //use user id to build a URL that returns the uploaded image 
             },
             error: (e) => {
                 $("#listFiles").text(e.responseText);
