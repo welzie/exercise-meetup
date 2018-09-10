@@ -5,7 +5,9 @@
       layout:decorate="~{default}">
 <head>
     <title th:text="${title}">Default Title</title>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
 </head>
 <body>
 <div class="content" layout:fragment="content">
@@ -95,49 +97,28 @@
     </style>
     <h3>Activity Locations</h3>
     <!--The div element for the map -->
-    <div id="directions-form "><label>Enter starting location:
-    <input type="text" id="start-location"></label>
 
     </div>
+            <div class="form-group">
+                <label th:for="location">Destination</label>
+                <select name="location">
+                    <option>Select one</option>
+                    <option th:each="activity : ${user.activities}"
+                            th:text="${activity.location}"
+                            th:value="${activity.location}"
+                    ></option>
+                </select>
+
+                <input type="submit" value="Get Directions" id="submit"/>
+
 
     <div id="map"></div>
 
     <script  th:inline="javascript">
-     /*<![CDATA[*/
-
-     var address;
-     var lat;
-     var lng;
+    /*<![CDATA[*/
 
 
 
-       //init map
-    function initMap(){
-       var options = {
-        zoom:8,
-        center:{lat:38.294958,lng:-92.492359}
-        }
-        // get map element
-    var map = new google.maps.Map(document.getElementById('map'), options);
-        function addMarker(coords){
-        var marker = new google.maps.Marker({
-          position:coords,
-          map:map,
-
-        });
-
-        }
-
-
-
-
-
-
-    //list of locations passed from controller to view using thymeleaf
-
-
-
-     /*<![CDATA[*/
 
 
     var locations = [];
@@ -150,31 +131,188 @@
 
         locations.push("[(${n})]");
         /*[/]*/
-  /*]]>*/
-
-    //loop through user locations
-    for(var i = 0; i < locations.length; i++){
-        address = locations[i]
 
 
-     axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
-     params:{
+     function initGeolocation()
+    {
+            if( navigator.geolocation )
+            {
 
-      address:locations[i],
-      key:apiKey
+              // Call getCurrentPosition with success and failure callbacks
+              navigator.geolocation.getCurrentPosition( success, fail );
         }
-      })
+        else
+        {
+              alert("Sorry, your browser does not support geolocation services.");
+        }
+    }
+
+         function success(position)
+     {
+           // Define the coordinates as a Google Maps LatLng Object
+           var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 
-      //using response from api to add markers to map
-      .then(function(response){
-        console.log(response)
-         lat = response.data.results[0].geometry.location.lat;
-         lng = response.data.results[0].geometry.location.lng;
-         addMarker({lat:lat,lng:lng});
-       })
-       }
-       }
+           // Prepare the map options
+           var mapOptions =
+          {
+                      zoom: 8,
+                      center: coords,
+                      mapTypeControl: false,
+                      navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+                      mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            // Create the map, and place it in the map_canvas div
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var props = {
+                coords: coords,
+                content: "You are here!"
+
+
+                };
+
+
+
+
+
+            // Place the initial marker
+            addMarker(props);
+
+            // add marker for activity locations
+           for(var i = 0; i < locations.length; i++){
+              var address = locations[i];
+
+              props = {
+               coords: getCoords(address),
+               content: address
+              };
+              addMarker(props);
+
+            }
+
+               //listen for address selection
+
+            //set destination value to address selected
+            var submit = document.getElementById("submit").addEventListener('click', getDirections);
+
+
+
+
+
+
+
+
+             // event listener not working dont know why
+
+                //get directions to selected location
+             function getDirections(){
+                  var destination =  document.getElementsByName("location")[0].value;
+
+                  console.log(destination);
+                  var directionsService = new google.maps.DirectionsService();
+                  var directionsDisplay = new google.maps.DirectionsRenderer();
+                  directionsDisplay.setMap(map);
+                if(destination != null){
+                 var request = {
+                  origin: coords,
+                  destination: getCoords(destination),
+                  travelMode: "DRIVING"
+                  };
+                  directionsService.route(request, function(response, status) {
+                    if (status == 'OK') {
+                 directionsDisplay.setDirections(response);
+                    }
+                  });
+
+
+                }
+            }
+
+
+
+
+        }
+        function fail(){
+
+        console.log("fail");
+        }
+
+
+        //adding marker function
+         function addMarker(props){
+
+            var marker = new google.maps.Marker({
+                      position: props.coords,
+                      map: map,
+
+
+            });
+             if(props.content){
+               var infoWindow = new google.maps.InfoWindow({
+                content:props.content
+          });
+            }
+              if(props.iconImage){
+          // Set icon image
+          marker.setIcon(props.iconImage);
+        }
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+
+            }
+
+           //get lat&lng function
+   function getCoords(address) {
+
+    var position = {};
+    $.ajax({
+        url : 'http://maps.google.com/maps/api/geocode/json',
+        type : 'GET',
+        data : {
+            address : address,
+            sensor : false
+        },
+        async : false,
+        success : function(result) {
+
+            try {
+                position.lat = result.results[0].geometry.location.lat;
+                position.lng = result.results[0].geometry.location.lng;
+            } catch(err) {
+                position = null;
+            }
+
+        }
+    });
+    return position;
+}
+
+
+
+        $(document).ready(function()
+        {
+            initGeolocation();
+
+        })
+          /*]]>*/
+
+
+
+
+
+
+
+
+
+    //list of locations passed from controller to view using thymeleaf
+
+
+
+
+
+
 
 
 

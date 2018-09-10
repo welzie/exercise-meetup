@@ -125,7 +125,7 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "user/{username}", method = RequestMethod.GET)
     public String profile(@PathVariable String username, Model model) {
-        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&callback=initMap";
+        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&libraries=places&callback=initGeolocation";
         /* Add edit profile links if user id and session user id match? */
         User user = userDao.findByUsername(username);
 
