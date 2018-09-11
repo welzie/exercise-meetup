@@ -120,12 +120,13 @@
 
 
 
-
+    //initiate variable for user activity locations
     var locations = [];
+    //googlemaps api keys
     var apiKey = /*[[${apiKey}]]*/;
 
 
-
+    pushing thymeleaf passed in variable into javascript variable
     /*[# th:each="n : ${locations}"]*/
 
 
@@ -135,6 +136,7 @@
 
      function initGeolocation()
     {
+
             if( navigator.geolocation )
             {
 
@@ -163,8 +165,9 @@
                       mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
-            // Create the map, and place it in the map_canvas div
+            // Create the map, and place it in the map div
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            //variable for adding marker
             var props = {
                 coords: coords,
                 content: "You are here!"
@@ -176,10 +179,10 @@
 
 
 
-            // Place the initial marker
+            // Place the initial marker for user current location
             addMarker(props);
 
-            // add marker for activity locations
+            //loop through locations variable and add marker
            for(var i = 0; i < locations.length; i++){
               var address = locations[i];
 
@@ -191,9 +194,9 @@
 
             }
 
-               //listen for address selection
 
-            //set destination value to address selected
+
+            //listen for user to submit request to get directions
             var submit = document.getElementById("submit").addEventListener('click', getDirections);
 
 
@@ -203,13 +206,14 @@
 
 
 
-             // event listener not working dont know why
 
-                //get directions to selected location
+
+             //this function get directions
              function getDirections(){
+                  set variable to address selected from html element location
                   var destination =  document.getElementsByName("location")[0].value;
 
-                  console.log(destination);
+
                   var directionsService = new google.maps.DirectionsService();
                   var directionsDisplay = new google.maps.DirectionsRenderer();
                   directionsDisplay.setMap(map);
@@ -306,7 +310,7 @@
 
 
 
-    //list of locations passed from controller to view using thymeleaf
+   
 
 
 
