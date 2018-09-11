@@ -3,14 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{default}">
+
 <head>
     <title th:text="${title}">Default Title</title>
 </head>
 <body>
+
 <div class="content" layout:fragment="content">
+
     <form method="post" style="max-width:600px;" th:object="${activity}">
         <div class="form-group">
-            <label th:for="type">Activity Type</label>
+            <label th:for="type">Activity Type:</label>
             <select name="type">
                 <option>Select one</option>
                 <option th:each="type : ${types}"
@@ -18,38 +21,97 @@
                         th:value="${type}"></option>
             </select>
 
+
+
+
+
             <input th:type="hidden" th:field="${activity.id}"/>
         </div>
         <div class="form-group">
-            <label>Skill Level</label>
+            <label>Skill Level:</label>
             <div class="radio">
+
                 <label th:for="level"> <input type="radio" name="level"
                                               th:each="level : ${levels}" th:text="${level.name}" th:value="${level}" >
+
+
                 </label>
+                <span th:errors="*{level}" class="error"></span>
             </div>
 
 
 
-                <span th:errors="*{level}" class="error"></span>
+
 
         </div>
 
         <div class="form-group">
-            <label th:for="date">Date
+
+            <label th:for="date">Date:
                 <input type="date" th:feild="*{date}" name = "date">
             </label>
             <span th:errors="*{date}" class="error"></span>
             <span th:if="${error}" class="error">Please select a valid date.</span>
         </div>
         <div class="form-group">
-            <label th:for="time">Time
+            <label th:for="time">Time:
                 <input type="time" th:feild="*{time}" name = "time">
+
             </label>
             <span th:errors="*{time}" class="error"></span>
         </div>
+        <div class="form-group">
+            <label th:for="location">Address:
+                <input type="text" th:feild="${location}" name = "location" id ="location">
+
+            </label>
+            <span th:if="${location} and ${location.isEmpty()}" class="error">Please specify a location</span>
+        </div>
         <input type="submit" value="Add Activity" />
     </form>
+    <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+    }
+    </style>
+    <div id="map"></div>
+    <script  th:inline="javascript">
+
+
+
+     var state =   { 'mo': {
+          center: {lat: 38.294958, lng: -92.492359},
+          zoom: 8
+        }};
+
+
+
+       //init map
+    function initMap(){
+
+
+
+
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById('location')));
+
+
+
+
+
+
+
+    }
+
+        </script>
+    <script
+             th:src= ${src}  async defer >
+             </script>
+
+
 </div>
+
 <th:block layout:fragment="scripts"></th:block>
 </body>
 </html>

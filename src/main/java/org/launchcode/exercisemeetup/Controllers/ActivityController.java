@@ -7,6 +7,7 @@ import org.launchcode.exercisemeetup.Models.data.ActivityDao;
 import org.launchcode.exercisemeetup.Models.data.ActivityType;
 import org.launchcode.exercisemeetup.Models.data.SkillLevel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,9 @@ import java.util.Optional;
 @RequestMapping("activity")
 public class ActivityController extends AbstractController {
 
+    @Value("${google.maps.api.key}")
+    private String apiKey;
+
     @RequestMapping(value = "")
     public String index(Model model) {
         Iterable<Activity> activities = activityDao.findAll();
@@ -41,6 +45,9 @@ public class ActivityController extends AbstractController {
     @RequestMapping(value="add", method = RequestMethod.GET)
     public String displayAddActivity(Model model, HttpSession httpSession) {
 
+        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&libraries=places&callback=initMap";
+
+
         if (getUserFromSession(httpSession)==null) {
             return "redirect:/register";
         } else {
@@ -49,6 +56,10 @@ public class ActivityController extends AbstractController {
             model.addAttribute("types", ActivityType.values());
             model.addAttribute("levels", SkillLevel.values());
             model.addAttribute(new Activity());
+            model.addAttribute("apiKey", this.apiKey);
+            model.addAttribute("src", src);
+
+
 
             return "activity/add-activity";
         }
@@ -56,20 +67,27 @@ public class ActivityController extends AbstractController {
 
     @RequestMapping(value="add", method= RequestMethod.POST)
     public String processAddActivity(@ModelAttribute @Valid Activity newActivity, Errors errors,  Model model, HttpSession httpSession) {
+        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&libraries=places&callback=initMap";
 
         Optional <LocalDate> date = Optional.ofNullable(newActivity.getDate());
         Boolean futureDate;
+        String location = newActivity.getLocation();
         if (date.isPresent()) {
             futureDate = newActivity.getDate().isBefore(LocalDate.now());
 
 
         }else futureDate = false;
 
-        if (errors.hasErrors() || futureDate ==true) {
+        if (errors.hasErrors() || futureDate ==true || location.isEmpty()) {
             model.addAttribute("title", "Add Activity");
             model.addAttribute("types", ActivityType.values());
             model.addAttribute("levels", SkillLevel.values());
             model.addAttribute("error",futureDate);
+            model.addAttribute("location", location);
+            model.addAttribute("apiKey", this.apiKey);
+            model.addAttribute("src", src);
+
+
 
             return "activity/add-activity";
         }
@@ -196,7 +214,12 @@ public class ActivityController extends AbstractController {
                                       @RequestParam(value = "type", required = false) ActivityType type,
                                       @RequestParam(value = "date", required = false)@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
                                       @RequestParam(value = "level", required = false) SkillLevel level,
+                                      @RequestParam(value = "location", required = false) String location,
                                       @RequestParam(value = "time", required = false)@DateTimeFormat(pattern="HH:mm")LocalTime time){
+
+
+
+
 
         Activity activity = activityDao.findById(id);
 
@@ -216,6 +239,10 @@ public class ActivityController extends AbstractController {
                 activity.setTime(time);
                 activityDao.save(activity);
             }
+        if (location != null) {
+            activity.setLocation(location);
+            activityDao.save(activity);
+        }
 
             return "main/profile";
         }

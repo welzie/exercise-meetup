@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.launchcode.exercisemeetup.Models.Activity;
 import org.launchcode.exercisemeetup.Models.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping(value = "rest")
 public class RestController extends AbstractController {
+
+    @Value("${google.maps.api.key}")
+    private String apiKey;
 
     @RequestMapping(value = "completed")
     public String completed(@RequestParam String username, @RequestParam boolean completed, @RequestParam int activityId, HttpSession session) {
@@ -39,6 +43,7 @@ public class RestController extends AbstractController {
         String jsonInString = new String();
         ArrayList<Activity> test = activityDao.findByCompletedOrderByDateAsc(false);
         jsonInString = mapper.writeValueAsString(test);
+        System.out.println(this.apiKey);
 
 
         return jsonInString;
