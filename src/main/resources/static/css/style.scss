@@ -5,10 +5,10 @@ $expert: black;
 
 .header {
   background-image: url("../images/bicycle_background.jpg");
-  background-attachment: local;
+  background-attachment: fixed;
   background-size: cover;
   background-position: center;
-  background-repeat: repeat;
+  
 }
 
 .errors {
