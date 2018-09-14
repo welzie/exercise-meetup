@@ -3,6 +3,7 @@ $medium: #FFD700;
 $hard: #C51728;
 $expert: black;
 
+
 .header {
   background-image: url("../images/bicycle_background.jpg");
   background-attachment: fixed;
@@ -10,6 +11,7 @@ $expert: black;
   background-position: center;
 
 }
+
 
 .errors {
   color: red;
@@ -34,8 +36,13 @@ $expert: black;
 }
 
 body {
-  padding-top: 80px;
+  padding-top: 200px;
   position: relative;
+  background-image: url("../images/bicycle_background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 .description {
@@ -105,15 +112,22 @@ body {
   border-bottom: $expert 3px solid;
 }
 
-.activity-item {
-  margin: 10px 0;
-  background-color: white;
+.activity-container {
+  min-height: 60vh;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-top: 5px #333 solid;
 
-  div {
-    padding: 3px;
+  .activity-item {
+    margin: 10px 0;
+    background-color: white;
 
-    p, h1, h2, h3, h4, h5, a {
-      margin: 3px;
+    div {
+      padding: 3px;
+
+      p, h1, h2, h3, h4, h5, a {
+        margin: 3px;
+      }
     }
   }
 }
@@ -126,6 +140,7 @@ body {
     justify-content: space-between;
   }
 }
+
 
 /*# sourceMappingURL=style.css.map */
 
