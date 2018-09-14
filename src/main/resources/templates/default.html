@@ -19,14 +19,8 @@
     </button>
     <div class="navbar-collapse collapse" id="collapsingNavbar">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Main</a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/register}">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/activity/add}">Add Activity</a>
+                <a class="nav-link" th:if="${user}" th:href="@{/activity/add}">Add Activity</a>
             </li>
             <li class="nav-item" th:if="${user}">
                 <a class="nav-link" th:href="@{/user/} + ${user.username}">My Activities</a>
@@ -48,15 +42,14 @@
     </div>
 </nav>
 
-<header class="header">
-    <div class="overlay">
-        <div class="container">
-            <div class="content" layout:fragment="content">
 
-            </div>
+<div class="overlay">
+    <div class="container">
+        <div class="content" layout:fragment="content">
+
         </div>
     </div>
-</header>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"

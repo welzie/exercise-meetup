@@ -1,19 +1,5 @@
-.header {
-  background-image: url("../images/bicycle_background.jpg");
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-}
-
 .errors {
   color: red;
-}
-
-.notification {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    vertical-align: middle;
 }
 
 .content {
@@ -35,8 +21,13 @@
 }
 
 body {
-  padding-top: 80px;
+  padding-top: 200px;
   position: relative;
+  background-image: url("../images/bicycle_background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 .description {
