@@ -38,7 +38,7 @@
                 <th>Time</th>
                 <th>Activity Type</th>
                 <th>Difficulty</th>
-                <th>User</th>
+                <th>Location</th>
                 <th>Complete</th>
                 <th>Edit</th>
             </tr>
@@ -48,7 +48,6 @@
                 <td th:text="${activity.time}"></td>
                 <td th:text="${activity.type.name}"></td>
                 <td th:text="${activity.level.name}"></td>
-                <td th:text="${activity.user.username}"></td>
                 <td th:text="${activity.location}"></td>
                 <td th:if="${activity.completed}">Completed</td>
                 <td th:unless="${activity.completed}">Pending</td>
@@ -98,7 +97,7 @@
       #map {
         float:left;
         height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
+        width: 75%;  /* The width is the width of the web page */
        }
     </style>
     <h4>Activity Locations</h4>
@@ -115,9 +114,10 @@
 
                 <input type="submit" value="Get Directions" id="submit"/>
 
-
-                <div id="map"></div>
-                <div id="directionsPanel" style="float:right;width:30%;height 50%"></div>
+                <div class="row">
+                <div id="map"class="col-sm-8"></div>
+                <div class="col-sm-4" id="directionsPanel" style="float:right;width:30%;height 30%"></div>
+                </div>
 
     </div>
 
@@ -218,18 +218,9 @@
 
             //listen for user to submit request to get directions
             var submit = document.getElementById("submit").addEventListener('click', getDirections);
-
-
-
-
-
-
-
-
-
-
-             //this function get directions
+                 //this function get directions
              function getDirections(){
+
                   //set variable to address selected from html element location
                   var destination =  document.getElementsByName("location")[0].value;
 
@@ -253,7 +244,17 @@
 
 
                 }
-            }
+                  }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -263,6 +264,8 @@
 
         console.log("fail");
         }
+
+
 
 
         //adding marker function
