@@ -3,6 +3,16 @@ $medium: #FFD700;
 $hard: #C51728;
 $expert: black;
 
+
+.header {
+  background-image: url("../images/bicycle_background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+
+}
+
+
 .errors {
   color: red;
 }
