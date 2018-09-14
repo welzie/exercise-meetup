@@ -12,22 +12,26 @@
 <body>
 <div class="content" layout:fragment="content">
 
-    <div>
+    <div class = "column">
         <h1 id="greeting" th:data-user="${user.username}" th:text="'Hi, ' + ${user.username} + ', here are all your activities.'"></h1>
-    </div>
-    <div class="alert alert-warning" th:if="${user.breachNotify} == 1" id="hibp">
+
+    <div  class="row alert alert-warning" th:if="${user.breachNotify} == 1" id="hibp">
         <p id="breachNotification" th:text="'Heads up ' + ${user.username} + ', it looks like your username was compromised in a breach on ' + ${user.lastBreach} + '. Please use an updated password since that last breach, at a minimum.'"></p>
-        <div class="breachNotificationActions">
+        <div class="row breachNotificationActions" >
         <p>For more information on your specific breach, please click <a href="https://haveibeenpwned.com">here</a> and enter your username.</p>
-        <div class="notification">
-            <div><button id="hideNotification" class="btn btn-primary">Hide</button></div>
-            <div><input type="checkbox" id="hidePermanently">Don't see me again.</div>
+        <div class="row notification" >
+            <button id="hideNotification" class="btn btn-primary ">Hide</button><br/>
+
+           <input class="form-control" type="checkbox" id="hidePermanently">Don't see me again.
+
         </div>
         </div>
+    </div>
     </div>
 
-    <div>
-        <table class="table">
+    <div class="column">
+        <div class="row">
+        <table class="table-bordered">
 
             <tr>
                 <th>Date</th>
@@ -52,38 +56,39 @@
                 </td>
             </tr>
 
+
         </table>
-        <div style="padding-top: 20px">
-            <form th:action="@{/activity/results}"  method="post">
-                <div class="form-group">
+        </div>
+        <div style="padding-top: 20px" >
+            <form th:action="@{/activity/results}" style="max-width:600px;" method="post" th:object="${activity}">
+                <div class="form-group ">
                     <label th:for="search_date">Search by Date
-                        <input type="date"  name = "search_date">
+                        <input type="date"  name = "search_date" class="input-group-sm">
                     </label>
                     <label th:for="time"> Search by Time</label>
-                    <input type="time" name="time">
-                </div>
-            </form>
-                    <form th:action="@{/activity/results}" style="max-width:600px;" method="post" th:object="${activity}">
-                        <div class="form-group">
+                    <input type="time" name="time" class="input-group-sm">
+
                             <label th:for="type">Search by Activity Type</label>
-                            <select name="type">
+                            <select name="type" class="input-group-sm">
                                 <option th:value=null>Select</option>
                                 <option th:each="type : ${types}"
                                         th:text="${type.name}"
                                         th:value="${type}"></option>
                             </select>
-                        </div>
-                        <div class="form-group">
+
                             <label th:for="level">Search by Skill Level</label>
-                            <select name="level">
+                            <select name="level" class="input-group-sm">
                                 <option th:value=null>Select</option>
                                 <option th:each="level: ${levels}"
                                         th:text= "${level.name}"
                                         th:value="${level}"></option>
                             </select>
-                        </div>
-                        <input type="submit" value="Search for Activities!"/>
+
+                        <input type="submit" value="Search for Activities!" class="input-group-sm"/>
+                </div>
                     </form>
+
+
 
 
 
@@ -91,17 +96,16 @@
     <style>
        /* Set the size of the div element that contains the map */
       #map {
+        float:left;
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
        }
     </style>
-    <h3>Activity Locations</h3>
+    <h4>Activity Locations</h4>
     <!--The div element for the map -->
-
-    </div>
             <div class="form-group">
                 <label th:for="location">Destination</label>
-                <select name="location">
+                <select name="location" >
                     <option>Select one</option>
                     <option th:each="activity : ${user.activities}"
                             th:text="${activity.location}"
@@ -112,7 +116,22 @@
                 <input type="submit" value="Get Directions" id="submit"/>
 
 
-    <div id="map"></div>
+                <div id="map"></div>
+                <div id="directionsPanel" style="float:right;width:30%;height 50%"></div>
+
+    </div>
+
+
+
+
+
+    </div>
+
+
+    <script th:src="@{/js/hibp.js}"></script>
+</div>
+
+<th:block layout:fragment="scripts"></th:block>
 
     <script  th:inline="javascript">
     /*<![CDATA[*/
@@ -126,7 +145,7 @@
     var apiKey = /*[[${apiKey}]]*/;
 
 
-    pushing thymeleaf passed in variable into javascript variable
+    //pushing thymeleaf passed in variable into javascript variable
     /*[# th:each="n : ${locations}"]*/
 
 
@@ -190,6 +209,7 @@
                coords: getCoords(address),
                content: address
               };
+              console.log(props);
               addMarker(props);
 
             }
@@ -210,7 +230,7 @@
 
              //this function get directions
              function getDirections(){
-                  set variable to address selected from html element location
+                  //set variable to address selected from html element location
                   var destination =  document.getElementsByName("location")[0].value;
 
 
@@ -226,6 +246,8 @@
                   directionsService.route(request, function(response, status) {
                     if (status == 'OK') {
                  directionsDisplay.setDirections(response);
+                 directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
                     }
                   });
 
@@ -271,12 +293,18 @@
    function getCoords(address) {
 
     var position = {};
+    var url = 'http://maps.google.com/maps/api/geocode/json';
+    url += '?' + $.param({
+    'api-key': apiKey
+    });
     $.ajax({
-        url : 'http://maps.google.com/maps/api/geocode/json',
+        url : url,
         type : 'GET',
+
         data : {
             address : address,
             sensor : false
+
         },
         async : false,
         success : function(result) {
@@ -302,59 +330,13 @@
         })
           /*]]>*/
 
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
-        <script  async defer
-                th:src= ${src} >
+    <script  async defer
+             th:src= ${src} >
 
 
 
-        </script>
-
-
-    </div>
-
-
-    <script th:src="@{/js/hibp.js}"></script>
-</div>
-
-<th:block layout:fragment="scripts"></th:block>
+    </script>
 </div>
 </body>
 </html>
