@@ -102,15 +102,22 @@ body {
   border-bottom: $expert 3px solid;
 }
 
-.activity-item {
-  margin: 10px 0;
-  background-color: white;
+.activity-container {
+  min-height: 60vh;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-top: 5px #333 solid;
 
-  div {
-    padding: 3px;
+  .activity-item {
+    margin: 10px 0;
+    background-color: white;
 
-    p, h1, h2, h3, h4, h5, a {
-      margin: 3px;
+    div {
+      padding: 3px;
+
+      p, h1, h2, h3, h4, h5, a {
+        margin: 3px;
+      }
     }
   }
 }
@@ -123,6 +130,7 @@ body {
     justify-content: space-between;
   }
 }
+
 
 /*# sourceMappingURL=style.css.map */
 

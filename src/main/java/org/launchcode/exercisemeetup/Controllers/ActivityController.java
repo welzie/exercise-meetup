@@ -123,7 +123,7 @@ public class ActivityController extends AbstractController {
         model.addAttribute("title", "New Activity");
         model.addAttribute("types", ActivityType.values());
         model.addAttribute("levels", SkillLevel.values());
-        model.addAttribute("activities", activityDao.findByUser(getUserFromSession(httpSession)));
+        model.addAttribute("activities", activityDao.findByUserOrderByDateAsc(getUserFromSession(httpSession)));
 
         return "activity/view-activity";
     }
@@ -138,54 +138,55 @@ public class ActivityController extends AbstractController {
         ArrayList<Activity> searchResult = new ArrayList<>();
 
         if (search_date != null && time!=null && type !=null && level !=null) {
-            searchResult = activityDao.findByDateAndTimeAndTypeAndLevel(search_date, time, type, level);
+            searchResult = activityDao.findByDateAndTimeAndTypeAndLevelOrderByDateAsc(search_date, time, type, level);
             }
         else if (search_date !=null && type !=null && level!=null) {
-            searchResult = activityDao.findByDateAndTypeAndLevel(search_date,type,level);
+            searchResult = activityDao.findByDateAndTypeAndLevelOrderByDateAsc(search_date,type,level);
             }
         else if (search_date !=null && time !=null && level!=null) {
-            searchResult = activityDao.findByDateAndTimeAndLevel(search_date, time, level);
+            searchResult = activityDao.findByDateAndTimeAndLevelOrderByDateAsc(search_date, time, level);
             }
         else if (search_date !=null && time!=null && type != null) {
-            searchResult = activityDao.findByDateAndTimeAndType(search_date, time, type);
+            searchResult = activityDao.findByDateAndTimeAndTypeOrderByDateAsc(search_date, time, type);
             }
         else if (time !=null && type !=null && level !=null) {
-            searchResult = activityDao.findByTimeAndTypeAndLevel(time,type,level);
+            searchResult = activityDao.findByTimeAndTypeAndLevelOrderByDateAsc(time,type,level);
             }
         else if (time !=null && type !=null) {
-            searchResult = activityDao.findByTimeAndType(time,type);
+            searchResult = activityDao.findByTimeAndTypeOrderByDateAsc(time,type);
             }
         else if (time !=null && level !=null) {
-            searchResult = activityDao.findByTimeAndLevel(time,level);
+            searchResult = activityDao.findByTimeAndLevelOrderByDateAsc(time,level);
             }
         else if (type !=null && level !=null){
-            searchResult = activityDao.findByTypeAndLevel(type,level);
+            searchResult = activityDao.findByTypeAndLevelOrderByDateAsc(type,level);
             }
         else if (search_date != null && type !=null) {
-            searchResult = activityDao.findByDateAndType(search_date,type);
+            searchResult = activityDao.findByDateAndTypeOrderByDateAsc(search_date,type);
             }
         else if (search_date !=null && level!=null) {
-        searchResult = activityDao.findByDateAndLevel(search_date,level);
+        searchResult = activityDao.findByDateAndLevelOrderByDateAsc(search_date,level);
             }
         else if (search_date !=null && time != null) {
-            searchResult = activityDao.findByDateAndTime(search_date,time);
+            searchResult = activityDao.findByDateAndTimeOrderByDateAsc(search_date,time);
             }
         else if (search_date != null) {
-            searchResult = activityDao.findByDate(search_date);
+            searchResult = activityDao.findByDateOrderByDateAsc(search_date);
             }
         else if (time !=null) {
-            searchResult = activityDao.findByTime(time);
+            searchResult = activityDao.findByTimeOrderByDateAsc(time);
             }
         else if (type !=null) {
-            searchResult = activityDao.findByType(type);
+            searchResult = activityDao.findByTypeOrderByDateAsc(type);
             }
         else if (level !=null) {
-            searchResult =activityDao.findByLevel(level);
+            searchResult =activityDao.findByLevelOrderByDateAsc(level);
         }
         model.addAttribute("searchResult", searchResult);
 
         return "activity/search-results";
     }
+
     @RequestMapping(value = "view-all")
     public String viewAll (Model model){
         model.addAttribute("title", "View All Activities");

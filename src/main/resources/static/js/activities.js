@@ -6,6 +6,7 @@ $(document).ready(function() {
         return response.json();
     }).then((json) => {
 
+        $(".content").append("<div class='activity-container'><div>");
         for(let i = 0; i < json.length; i++) {
             console.log(json[i]);
 
@@ -34,7 +35,7 @@ $(document).ready(function() {
                 '</div>' +
             '</div>';
             console.log(activityStructure);
-            $(".content").append(activityStructure);
+            $(".activity-container").append(activityStructure);
             
         }
     })

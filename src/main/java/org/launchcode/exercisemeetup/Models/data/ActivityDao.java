@@ -20,43 +20,74 @@ import java.util.List;
 @Transactional
 public interface ActivityDao extends CrudRepository<Activity, Integer> {
 
-    /*@Query(value = "SELECT a FROM Activity a ORDERED BY a.date ASC", nativeQuery = true)*/
-    public ArrayList<Activity> findByCompletedOrderByDateAsc(boolean bool);
+    public ArrayList<Activity> findAllByOrderByDateAsc();
 
-    public List<Activity> findByUser(User user);
+    public ArrayList<Activity> findByCompletedOrderByDateAsc(boolean completed);
 
-    public ArrayList<Activity> findByDate(LocalDate date);
+    public List<Activity> findByUserAndCompletedOrderByDateAsc(User user, boolean completed);
 
-    public ArrayList<Activity> findByDateAndTime(LocalDate date, LocalTime time);
+    public ArrayList<Activity> findByDateAndCompletedOrderByDateAsc(LocalDate date, boolean completed);
 
-    public ArrayList<Activity> findByDateAndType(LocalDate date, ActivityType type);
+    public ArrayList<Activity> findByDateAndTimeAndCompletedOrderByDateAsc(LocalDate date, LocalTime time, boolean completed);
 
-    public ArrayList<Activity> findByDateAndLevel(LocalDate date, SkillLevel level);
+    public ArrayList<Activity> findByDateAndTypeAndCompletedOrderByDateAsc(LocalDate date, ActivityType type, boolean completed);
 
-    public ArrayList<Activity> findByDateAndTypeAndLevel(LocalDate date, ActivityType type, SkillLevel level);
+    public ArrayList<Activity> findByDateAndLevelAndCompletedOrderByDateAsc(LocalDate date, SkillLevel level, boolean completed);
 
-    public ArrayList<Activity> findByDateAndTimeAndLevel(LocalDate date, LocalTime time, SkillLevel level);
+    public ArrayList<Activity> findByDateAndTypeAndLevelAndCompletedOrderByDateAsc(LocalDate date, ActivityType type, SkillLevel level, boolean completed);
 
-    public ArrayList<Activity> findByDateAndTimeAndType(LocalDate date, LocalTime time, ActivityType type);
+    public ArrayList<Activity> findByDateAndTimeAndLevelAndCompletedOrderByDateAsc(LocalDate date, LocalTime time, SkillLevel level, boolean completed);
 
-    public ArrayList<Activity> findByDateAndTimeAndTypeAndLevel(LocalDate date, LocalTime time, ActivityType type, SkillLevel level);
+    public ArrayList<Activity> findByDateAndTimeAndTypeAndCompletedOrderByDateAsc(LocalDate date, LocalTime time, ActivityType type, boolean completed);
 
-    public ArrayList<Activity>findByTime(LocalTime time);
+    public ArrayList<Activity> findByDateAndTimeAndTypeAndLevelAndCompletedOrderByDateAsc(LocalDate date, LocalTime time, ActivityType type, SkillLevel level, boolean completed);
 
-    public ArrayList<Activity>findByTimeAndType(LocalTime time, ActivityType type);
+    public ArrayList<Activity>findByTimeAndCompletedOrderByDateAsc(LocalTime time, boolean completed);
 
-    public ArrayList<Activity>findByTimeAndLevel(LocalTime time, SkillLevel level);
+    public ArrayList<Activity>findByTimeAndTypeAndCompletedOrderByDateAsc(LocalTime time, ActivityType type, boolean completed);
 
-    public ArrayList<Activity>findByTimeAndTypeAndLevel(LocalTime time, ActivityType type, SkillLevel level);
+    public ArrayList<Activity>findByTimeAndLevelAndCompletedOrderByDateAsc(LocalTime time, SkillLevel level, boolean completed);
+
+    public ArrayList<Activity>findByTimeAndTypeAndLevelAndCompletedOrderByDateAsc(LocalTime time, ActivityType type, SkillLevel level, boolean completed);
 
     public Activity findById(int id);
 
-    public ArrayList<Activity> findByType(ActivityType type);
+    public ArrayList<Activity> findByTypeAndCompletedOrderByDateAsc(ActivityType type, boolean completed);
 
-    public ArrayList<Activity> findByTypeAndLevel(ActivityType type, SkillLevel level);
+    public ArrayList<Activity> findByTypeAndLevelAndCompletedOrderByDateAsc(ActivityType type, SkillLevel level, boolean completed);
 
-    public ArrayList<Activity>findByLevel(SkillLevel String);
+    public ArrayList<Activity>findByLevelAndCompletedOrderByDateAsc(SkillLevel String, boolean completed);
 
+    public List<Activity> findByUserOrderByDateAsc(User user);
 
+    public ArrayList<Activity> findByDateOrderByDateAsc(LocalDate date);
+
+    public ArrayList<Activity> findByDateAndTimeOrderByDateAsc(LocalDate date, LocalTime time);
+
+    public ArrayList<Activity> findByDateAndTypeOrderByDateAsc(LocalDate date, ActivityType type);
+
+    public ArrayList<Activity> findByDateAndLevelOrderByDateAsc(LocalDate date, SkillLevel level);
+
+    public ArrayList<Activity> findByDateAndTypeAndLevelOrderByDateAsc(LocalDate date, ActivityType type, SkillLevel level);
+
+    public ArrayList<Activity> findByDateAndTimeAndLevelOrderByDateAsc(LocalDate date, LocalTime time, SkillLevel level);
+
+    public ArrayList<Activity> findByDateAndTimeAndTypeOrderByDateAsc(LocalDate date, LocalTime time, ActivityType type);
+
+    public ArrayList<Activity> findByDateAndTimeAndTypeAndLevelOrderByDateAsc(LocalDate date, LocalTime time, ActivityType type, SkillLevel level);
+
+    public ArrayList<Activity>findByTimeOrderByDateAsc(LocalTime time);
+
+    public ArrayList<Activity>findByTimeAndTypeOrderByDateAsc(LocalTime time, ActivityType type);
+
+    public ArrayList<Activity>findByTimeAndLevelOrderByDateAsc(LocalTime time, SkillLevel level);
+
+    public ArrayList<Activity>findByTimeAndTypeAndLevelOrderByDateAsc(LocalTime time, ActivityType type, SkillLevel level);
+
+    public ArrayList<Activity> findByTypeOrderByDateAsc(ActivityType type);
+
+    public ArrayList<Activity> findByTypeAndLevelOrderByDateAsc(ActivityType type, SkillLevel level);
+
+    public ArrayList<Activity>findByLevelOrderByDateAsc(SkillLevel String);
 
 }
