@@ -25,12 +25,12 @@ $(document).ready(function() {
 
             let activityStructure = '<div class="activity-item flex-grid ' + level + '"> ' +
                 '<div>' +
-                    '<p>' + level + '</p>' +
+                    '<p>' + level.toLocaleLowerCase() + '</p>' +
                     '<h5>' + date + '</h5>' +
                     '<h2>' + time + '</h2>' +
                 '</div>' +
                 '<div>' +
-                    '<h1>' + type + '</h1>' +
+                    '<h1>' + type.toLocaleLowerCase() + '</h1>' +
                     '<a href="/user/' + user + '" ><h3>' + user + '</h3></a>' +
                 '</div>' +
             '</div>';

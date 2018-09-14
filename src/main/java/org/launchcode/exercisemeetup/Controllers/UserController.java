@@ -1,5 +1,6 @@
 package org.launchcode.exercisemeetup.Controllers;
 
+import org.launchcode.exercisemeetup.Models.Activity;
 import org.launchcode.exercisemeetup.Models.User;
 import org.launchcode.exercisemeetup.Models.data.ActivityType;
 import org.launchcode.exercisemeetup.Models.data.SkillLevel;
@@ -7,6 +8,7 @@ import org.launchcode.exercisemeetup.Models.data.UserDao;
 import org.launchcode.exercisemeetup.Models.forms.LoginForm;
 import org.launchcode.exercisemeetup.Models.forms.RegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -25,6 +30,8 @@ import java.util.Optional;
 @RequestMapping("")
 public class UserController extends AbstractController {
 
+    @Value("${google.maps.api.key}")
+    private String apiKey;
 
     @Autowired
     private UserDao userDao;
@@ -118,12 +125,25 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "user/{username}", method = RequestMethod.GET)
     public String profile(@PathVariable String username, Model model) {
-
+        String src = "https://maps.googleapis.com/maps/api/js?key=" + this.apiKey + "&libraries=places&callback=initGeolocation";
         /* Add edit profile links if user id and session user id match? */
         User user = userDao.findByUsername(username);
+
+        ArrayList<String> locations = user.getUserActivityLocations(user);
         model.addAttribute("user", user);
+
         model.addAttribute("types", ActivityType.values());
         model.addAttribute("levels", SkillLevel.values());
+
+        model.addAttribute("locations", locations);
+        model.addAttribute("apiKey", this.apiKey);
+        model.addAttribute("src", src);
+
+
+
+
+
         return "main/profile";
     }
+
 }
