@@ -14,7 +14,7 @@
     <form method="post" style="max-width:600px;" th:object="${activity}">
         <div class="form-group">
             <label th:for="type">Activity Type:</label>
-            <select name="type"class="form-control">
+            <select name="type">
                 <option>Select one</option>
                 <option th:each="type : ${types}"
                         th:text="${type.name}"
@@ -25,14 +25,14 @@
 
 
 
-            <input th:type="hidden" th:field="${activity.id}"class="form-control"/>
+            <input th:type="hidden" th:field="${activity.id}"/>
         </div>
         <div class="form-group">
             <label>Skill Level:</label>
             <div class="radio">
 
-                <label th:for="level"> <input class="btn-group-justified" type="radio" name="level"
-                                              th:each="level : ${levels}"  th:value="${level}" th:text="${level.name}" >
+                <label th:for="level"> <input type="radio" name="level"
+                                              th:each="level : ${levels}" th:text="${level.name}" th:value="${level}" >
 
 
                 </label>
@@ -48,24 +48,26 @@
         <div class="form-group">
 
             <label th:for="date">Date:
-                <input class="form-control" type="date" th:feild="*{date}" name = "date">
+                <input type="date" th:feild="*{date}" name = "date">
             </label>
             <span th:errors="*{date}" class="error"></span>
             <span th:if="${error}" class="error">Please select a valid date.</span>
-
+        </div>
+        <div class="form-group">
             <label th:for="time">Time:
-                <input class="form-control" type="time" th:feild="*{time}" name = "time">
+                <input type="time" th:feild="*{time}" name = "time">
 
             </label>
             <span th:errors="*{time}" class="error"></span>
-
+        </div>
+        <div class="form-group">
             <label th:for="location">Address:
-                <input class="form-control" type="text" th:feild="${location}" name = "location" id ="location">
+                <input type="text" th:feild="${location}" name = "location" id ="location">
 
             </label>
             <span th:if="${location} and ${location.isEmpty()}" class="error">Please specify a location</span>
         </div>
-        <input class="form-control" type="submit" value="Add Activity" />
+        <input type="submit" value="Add Activity" />
     </form>
     <style>
     /* Set the size of the div element that contains the map */
