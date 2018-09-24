@@ -28,11 +28,17 @@ function doAjax(user) {
             contentType: false,
             cache: false,
             success: (data) => {
-                $("#listFiles").text(data);
-                //use user id to build a URL that returns the uploaded image 
+                //$("#listFiles").text(data);
+                //use user id to build a URL that returns the uploaded image
+                fetch("http://localhost:8080/api/file/upload/uploadfile?username=" +user+ "&uploadfile=" + uploadfile)
+                .then(response=> response.blob)
+                .then((data)=> {
+                    console.log(data);
+                });
+
             },
-            error: (e) => {
-                $("#listFiles").text(e.responseText);
-            }
+            //error: (e) => {
+                //$("#listFiles").text(e.responseText);
+            //}
         });
     }

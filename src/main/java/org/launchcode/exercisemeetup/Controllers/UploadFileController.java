@@ -5,12 +5,17 @@ import org.launchcode.exercisemeetup.Models.User;
 import org.launchcode.exercisemeetup.Models.data.FileRepository;
 import org.launchcode.exercisemeetup.Models.forms.FileModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.Base64Utils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import sun.misc.IOUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.InputStream;
+import java.util.HashMap;
 
 @RestController
 public class UploadFileController extends AbstractController {
@@ -43,7 +48,29 @@ public class UploadFileController extends AbstractController {
 
         }
         return "redirect:profile";
-    }}
+    }
+
+    @GetMapping(value ="/api/file/upload", produces ={"application/json"})
+    public @ResponseBody HashMap<String,Object> uploadfile (MultipartHttpServletRequest request,
+        HttpServletResponse response) throws Exception {
+
+        MultipartFile multipartFile = request.getFile("uploadfile");
+        Long size = multipartFile.getSize();
+        String contentType = multipartFile.getContentType();
+        InputStream stream = multipartFile.getInputStream();
+        byte[] bytes = multipartFile.getBytes();
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("fileoriginalsize", size);
+        map.put("contenttype", contentType);
+        map.put("base64", new String(Base64Utils.encode(bytes)));
+
+        return map;
+        }
+}
+
+
+
 
 
 
