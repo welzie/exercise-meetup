@@ -1,9 +1,9 @@
-$( document ).ready( () => {
+//$( document ).ready( () => {
 
-	var url = window.location;
+	//var url = window.location;
 
 	// GET REQUEST
-	$("#btnGetFiles").click( (event) => {
+	/*$("#btnGetFiles").click( (event) => {
 		event.preventDefault();
 		ajaxGet();
 	});
@@ -21,7 +21,7 @@ $( document ).ready( () => {
 				/*
 					render list of files
 				*/
-				$("#listFiles").append('<ul>');
+				/*$("#listFiles").append('<ul>');
 				$.each(data, (index, file) => {
 					$("#listFiles").append('<li><a href=' + url + 'api/file/' + file.id	 +'>' + file.name + '</a></li>');
 				});
@@ -32,4 +32,4 @@ $( document ).ready( () => {
 			}
 		});
 	}
-})
+})*\

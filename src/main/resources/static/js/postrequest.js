@@ -15,7 +15,9 @@ function doAjax(user) {
     // Get form
     var form = $('#fileUploadForm')[0];
     var data = new FormData(form);
+    var imgContainer =$('#imgContainer');
     data.append(username,user);
+    data.append(imgContainer,imgContainer);
     //var user = $("#user").val();
         //if (user){
 
@@ -30,15 +32,20 @@ function doAjax(user) {
             success: (data) => {
                 //$("#listFiles").text(data);
                 //use user id to build a URL that returns the uploaded image
-                fetch("http://localhost:8080/api/file/upload/uploadfile?username=" +user+ "&uploadfile=" + uploadfile)
-                .then(response=> response.blob)
-                .then((data)=> {
-                    console.log(data);
+                const url = "http://localhost:8080/viewfile/image?"+ id;
+                console.log(url);
+                fetch(url).then((data)=> {
+                   //console.log(data);
+                    imgContainer.html('');
+                    var img = '<img src="data:' + data.contenttype + ';base64,' + data.base64 +'"/>';
+
+                    imgContainer.append(img);
                 });
 
             },
             //error: (e) => {
                 //$("#listFiles").text(e.responseText);
             //}
+            //uploadfile?username=" +user+ "&uploadfile=" + uploadfile)
         });
     }

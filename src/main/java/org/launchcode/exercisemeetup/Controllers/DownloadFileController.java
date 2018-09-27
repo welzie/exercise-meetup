@@ -1,4 +1,4 @@
-package org.launchcode.exercisemeetup.Controllers;
+//package org.launchcode.exercisemeetup.Controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.launchcode.exercisemeetup.Models.data.FileRepository;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+/*@RestController
 public class DownloadFileController {
 
     @Autowired
@@ -23,16 +23,16 @@ public class DownloadFileController {
     /*
      * List All Files
      */
-    @JsonView(View.FileInfo.class)
+   /* @JsonView(View.FileInfo.class)
     @GetMapping("/api/file/all")
     public List<FileModel> getListFiles() {
         return fileRepository.findAll();
-    }
+    }*/
 
     /*
      * Download Files
      */
-    @GetMapping("/api/file/{id}")
+   /* @GetMapping("/api/file/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable int id) {
         Optional<FileModel> fileOptional = fileRepository.findById(id);
 
@@ -45,4 +45,4 @@ public class DownloadFileController {
 
         return ResponseEntity.status(404).body(null);
     }
-}
+}*/

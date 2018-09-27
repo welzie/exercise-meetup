@@ -14,4 +14,6 @@ public interface FileRepository extends JpaRepository<FileModel, Integer> {
     public FileModel findByName(String name);
 
     public ArrayList<FileModel> findByUser(User user);
+
+    public FileModel findById(int id);
 }
