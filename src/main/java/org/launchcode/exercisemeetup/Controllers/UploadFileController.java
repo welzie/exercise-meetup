@@ -19,10 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
 
 @RestController
@@ -43,9 +40,9 @@ public class UploadFileController extends AbstractController {
 
                 //try {
                     // save file to SQL
-                    FileModel filemode = new FileModel(file.getOriginalFilename(), file.getContentType(), file.getBytes());
-                    filemode.setUser(getUserFromSession(httpSession));
-                    fileRepository.save(filemode);
+                    FileModel fileModel = new FileModel(file.getOriginalFilename(), file.getContentType(), file.getBytes());
+                    fileModel.setUser(getUserFromSession(httpSession));
+                    fileRepository.save(fileModel);
 
                     MultipartFile multipartFile = request.getFile("uploadfile");
                     Long size = multipartFile.getSize();
@@ -57,6 +54,7 @@ public class UploadFileController extends AbstractController {
                     map.put("fileoriginalsize", size);
                     map.put("contenttype", contentType);
                     map.put("base64", new String(Base64Utils.encode(bytes)));
+                    map.put("id", fileModel.getId());
 
                     return map;
                     //return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
@@ -90,9 +88,9 @@ public class UploadFileController extends AbstractController {
         FileModel fileModel = fileRepository.findById(id);
 
         return ResponseEntity.ok()
-                .contentLength(fileModel.getLength())
-                .contentType(MediaType.parseMediaType(fileModel.getContentType()))
-                .body(new InputStreamResource(fileModel.getInputStream()));
+                .contentLength(fileModel.getPic().length)
+                .contentType(MediaType.parseMediaType(fileModel.getMimetype()))
+                .body(new InputStreamResource(new ByteArrayInputStream(fileModel.getPic())));
 
 
 

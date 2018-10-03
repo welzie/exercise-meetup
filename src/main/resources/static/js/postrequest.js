@@ -32,15 +32,16 @@ function doAjax(user) {
             success: (data) => {
                 //$("#listFiles").text(data);
                 //use user id to build a URL that returns the uploaded image
-                const url = "http://localhost:8080/viewfile/image?"+ id;
+                //http://localhost:8080/viewfile/image/?id=50
+                const url = "http://localhost:8080/viewfile/image/?id="+ data.id;
                 console.log(url);
-                fetch(url).then((data)=> {
+                //fetch(url).then((data)=> {
                    //console.log(data);
                     imgContainer.html('');
-                    var img = '<img src="data:' + data.contenttype + ';base64,' + data.base64 +'"/>';
+                    var img = '<img src="'+url+'"/>';
 
                     imgContainer.append(img);
-                });
+                //});
 
             },
             //error: (e) => {
